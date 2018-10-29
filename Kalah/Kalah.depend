@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1540846872 source:/home/user/Desktop/cs5346_project2/Kalah/main.cpp
+	<iostream>
+	"Board.h"
+
+1540846143 source:/home/user/Desktop/cs5346_project2/Kalah/src/Tree.cpp
+	"Tree.h"
+
+1540846143 /home/user/Desktop/cs5346_project2/Kalah/include/Tree.h
+
+1540846673 /home/user/Desktop/cs5346_project2/Kalah/include/Board.h
+
+1540846932 source:/home/user/Desktop/cs5346_project2/Kalah/src/Board.cpp
+	"Board.h"
+	<iostream>
+

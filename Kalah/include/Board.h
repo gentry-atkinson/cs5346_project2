@@ -9,11 +9,14 @@ class Board
         ~Board();
         void draw();
         void move(int hole);
+        void gentryValue();
+        void vishalValue();
 
     protected:
 
     private:
         int holes[14]= {0, 6, 6, 6, 6, 6, 6, 0, 6, 6, 6, 6, 6, 6};
+        int value;
 };
 
 #endif // BOARD_H

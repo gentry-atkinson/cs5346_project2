@@ -7,15 +7,13 @@ int main()
 {
     Board board;
     board.draw();
-    board.move(1);
+    board.move(1, 1);
     board.draw();
-    board.move(10);
+    board.move(6, 1);
     board.draw();
-    board.move(3);
+    board.move(13, 1);
     board.draw();
-    board.move(11);
-    board.draw();
-    board.move(4);
+    board.move(5, 1);
     board.draw();
     return 0;
 }

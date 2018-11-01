@@ -50,12 +50,53 @@ int Board::getValue() {return value;}
 int Board::gentryValue(int player){
     //Player 1 = bottom player
     //Player 2 = top player
-    int value = 0;
+    int value = 0, sum1 = 0, sum2 = 0;
     switch (player) {
     case 1:
-        //if holes
+        //keeping right hand hole empty is good
+        if (holes[6] == 0) value += 1;
+        if (holes[13] == 0) value -= 1;
+        //an empty cup should add the value of the oposite one
+        for (int i = 1; i < 7; i++)
+            if (holes[i] == 0) value += holes[14 - i];
+        for (int i = 8; i < 14; i++)
+            if (holes[i] == 0) value -= holes[14 - i];
+        //scoring is good
+        value += holes[7];
+        value -= holes[0];
+        //check for "move again" cups
+        for (int i = 1; i < 7; i++)
+            if (holes[i] == (7-i)) value += 1;
+        for (int i = 8; i < 14; i++)
+            if (holes[i] == (i-7)) value -= 1;
+        //having more stones on my side is good-ish
+        for (int i = 1; i < 7; i++) sum1 += holes[i];
+        for (int i = 8; i < 14; i++) sum2 += holes [i];
+        if (sum1 > sum2) value +=1;
+        else if (sum2 > sum1) value -= 1;
         break;
     case 2:
+        //keeping right hand hole empty is good
+        if (holes[6] == 0) value -= 1;
+        if (holes[13] == 0) value += 1;
+        //an empty cup should add the value of the oposite one
+        for (int i = 1; i < 7; i++)
+            if (holes[i] == 0) value -= holes[14 - i];
+        for (int i = 8; i < 14; i++)
+            if (holes[i] == 0) value += holes[14 - i];
+        //scoring is good
+        value -= holes[7];
+        value += holes[0];
+        //check for "move again" cups
+        for (int i = 1; i < 7; i++)
+            if (holes[i] == (7-i)) value -= 1;
+        for (int i = 8; i < 14; i++)
+            if (holes[i] == (i-7)) value += 1;
+        //having more stones on my side is good-ish
+        for (int i = 1; i < 7; i++) sum1 += holes[i];
+        for (int i = 8; i < 14; i++) sum2 += holes [i];
+        if (sum1 > sum2) value -= 1;
+        else if (sum2 > sum1) value += 1;
         break;
     default:
         cerr << "Bad player value passed to gentryValue()" << endl;

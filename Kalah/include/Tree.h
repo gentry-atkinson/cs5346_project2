@@ -1,6 +1,13 @@
 #ifndef TREE_H
 #define TREE_H
 
+#include "Board.h"
+
+struct boardNode{
+    Board board;
+    Board * children[];
+};
+
 
 class Tree
 {
@@ -11,6 +18,10 @@ class Tree
     protected:
 
     private:
+
+    int depth;
+    boardNode * root;
+
 };
 
 #endif // TREE_H

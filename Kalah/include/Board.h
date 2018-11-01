@@ -8,9 +8,10 @@ class Board
         Board();
         ~Board();
         void draw();
-        void move(int hole, int player);
+        int move(int hole, int player);
         void setValue(int algorithm, int player);
         int getValue();
+        bool isLegal(int moveNumber, int player);
 
     protected:
 

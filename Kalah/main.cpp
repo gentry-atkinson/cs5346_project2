@@ -11,25 +11,26 @@ using namespace std;
 
 int main()
 {
+    int player = 1;
     Board board;
     board.draw();
-    board.setValue(1, 1);
-    cout << "This board is worth " << board.getValue() << " to Player 1" << endl;
-    board.move(1, 1);
+    board.setValue(1, player);
+    cout << "This board is worth " << board.getValue() << " to Player " << player << endl;
+    player = board.move(1, player);
     board.draw();
-    board.setValue(1, 2);
-    cout << "This board is worth " << board.getValue() << " to Player 2" << endl;
-    board.move(6, 1);
+    board.setValue(1, player);
+    cout << "This board is worth " << board.getValue() << " to Player " << player << endl;
+    player = board.move(6, player);
     board.draw();
-    board.setValue(1, 1);
-    cout << "This board is worth " << board.getValue() << " to Player 1" << endl;
-    board.move(13, 1);
+    board.setValue(1, player);
+    cout << "This board is worth " << board.getValue() << " to Player " << player << endl;
+    player = board.move(13, player);
     board.draw();
-    board.setValue(1, 2);
-    cout << "This board is worth " << board.getValue() << " to Player 2" << endl;
-    board.move(5, 1);
+    board.setValue(1, player);
+    cout << "This board is worth " << board.getValue() << " to Player " << player << endl;
+    player = board.move(5, player);
     board.draw();
-    board.setValue(1, 1);
-    cout << "This board is worth " << board.getValue() << " to Player 1" << endl;
+    board.setValue(1, player);
+    cout << "This board is worth " << board.getValue() << " to Player " << player << endl;
     return 0;
 }

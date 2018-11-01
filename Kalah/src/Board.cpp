@@ -13,6 +13,7 @@ Board::~Board()
     //dtor
 }
 
+//TODO: print it more pretty
 void Board::draw(){
     cout << "\t" << holes[13] << " " << holes[12] << " " << holes[11] << " " << holes[10] << " " << holes[9] << " " << holes[8] << endl;
     cout << holes[0] << "\t\t\t" << holes[7] << endl;
@@ -20,18 +21,29 @@ void Board::draw(){
     return;
 }
 
-void Board::move(int hole, int player){
+//TODO: check for captures
+int Board::move(int hole, int player){
     int stones = holes[hole];
+
+    //empty moved cup
     holes[hole] = 0;
+
+    //distribute stones
     hole += 1;
     while (stones > 0){
         holes[hole]++;
         hole = (hole + 1)%14;
+        //skip oponents kalah
         if (player == 1 && hole == 0) hole++;
         if (player == 2 && hole == 7) hole++;
         stones--;
     }
-    return;
+    //check for repeat turn
+    if (player == 1 && hole == 7) return player;
+    if (player == 2 && hole == 0) return player;
+
+    //if no repeat turn, then switch player
+    return player==1?2:1;
 }
 
 void Board::setValue(int algorithm, int player){
@@ -105,3 +117,15 @@ int Board::gentryValue(int player){
 }
 
 int Board::vishalValue(){;}
+
+bool Board::isLegal(int moveNumber, int player){
+    //players cannot play other player's cups
+    if (player == 1 && moveNumber > 7) return false;
+    if (player == 2 && moveNumber < 7) return false;
+    //neither player can move kalahs
+    if (moveNumber == 0 || moveNumber == 7) return false;
+    //player cannot move an empty hole
+    if (holes[moveNumber] == 0) return false;
+    //move is legal
+    return true;
+}

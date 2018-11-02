@@ -32,5 +32,9 @@ int main()
     board.draw();
     board.setValue(1, player);
     cout << "This board is worth " << board.getValue() << " to Player " << player << endl;
+
+    board.vishalValue();
+
+
     return 0;
 }

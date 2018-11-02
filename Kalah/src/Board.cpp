@@ -116,7 +116,47 @@ int Board::gentryValue(int player){
     return value;
 }
 
-int Board::vishalValue(){;}
+int Board::vishalValue(){
+
+    int store[5];
+    int counter=0;
+
+    //So if i find an empty pit in my end and see how many stones are present in the opposite end,
+    // grab all the stones in the next move;
+
+    for(int i=1;i<7;i++)
+    {
+        if(holes[i]==0)
+        {
+            store[counter]=i;
+            counter++;
+        }
+    }
+    cout<<"---------"<<endl;
+    for(int i=0;i<counter;i++)
+    {
+
+        cout<<store[i]<<" "; // found empty pits in my end;
+    }
+    cout<<endl<<"---------"<<endl;
+
+    int oppvalue=0;
+    int high =8;
+    for(int i=13; i>7 ; i--)
+    {
+        if(holes[i]>holes[high])
+            high=i;
+    }
+    cout<<endl<<"Highest value in the opp end"<<endl<<high<<endl;
+
+    //check for the opp end ascending order and try to attack!
+
+
+
+
+
+
+}
 
 bool Board::isLegal(int moveNumber, int player){
     //players cannot play other player's cups

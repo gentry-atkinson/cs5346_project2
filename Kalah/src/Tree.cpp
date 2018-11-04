@@ -13,7 +13,7 @@ Tree::Tree()
 
 Tree::~Tree()
 {
-   //for(int i = 0; i < 7; i++ )delete root.children[i];
+   for(int i = 0; i < 7; i++ )delete root->children[i];
    delete root;
 }
 
@@ -26,3 +26,5 @@ Tree::Tree(int value, int search, int depth, int player){
 
     buildTree();
 }
+
+void Tree::buildTree(){;}

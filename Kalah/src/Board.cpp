@@ -5,7 +5,15 @@ using namespace std;
 
 Board::Board()
 {
+    value = 0;
+    finished = false;
+}
 
+Board::Board(const Board& toCopy){
+    for (int i = 0; i < 14; i++)
+        holes[i] = toCopy.holes[i];
+    value = toCopy.value;
+    finished = toCopy.finished;
 }
 
 Board::~Board()
@@ -21,8 +29,9 @@ void Board::draw(){
     return;
 }
 
-//TODO: check for captures
+
 int Board::move(int hole, int player){
+    int sum1, sum2;
     int stones = holes[hole];
 
     //empty moved cup
@@ -38,6 +47,27 @@ int Board::move(int hole, int player){
         if (player == 2 && hole == 7) hole++;
         stones--;
     }
+
+    //if one player's holes are empty, game is over
+    for (int i = 1; i < 7; i++)
+        sum1 += holes[i];
+    for (int i = 8; i < 14; i++)
+        sum2 += holes[i];
+    if (sum1 == 0){
+        holes[0] += sum2;
+        for (int i = 8; i < 14; i++)
+            holes[i] = 0;
+        finished = true;
+        return 0;
+    }
+    if (sum2 == 0){
+        holes[7] += sum2;
+        for (int i = 1; i < 7; i++)
+            holes[i] = 0;
+        finished = true;
+        return 0;
+    }
+
     //check for repeat turn
     if (player == 1 && hole == 7) return player;
     if (player == 2 && hole == 0) return player;
@@ -62,53 +92,61 @@ int Board::getValue() {return value;}
 int Board::gentryValue(int player){
     //Player 1 = bottom player
     //Player 2 = top player
+
+    //Tuning Parameters
+    int emptyRightScaling = 1;
+    int emptyCupScaling = 1;
+    int scoreScaling = 5;
+    int moveAgainCupsScaling = 2;
+    int moreStonesScaling = 1;
+
     int value = 0, sum1 = 0, sum2 = 0;
     switch (player) {
     case 1:
         //keeping right hand hole empty is good
-        if (holes[6] == 0) value += 1;
-        if (holes[13] == 0) value -= 1;
+        if (holes[6] == 0) value += emptyRightScaling;
+        if (holes[13] == 0) value -= emptyRightScaling;
         //an empty cup should add the value of the oposite one
         for (int i = 1; i < 7; i++)
-            if (holes[i] == 0) value += holes[14 - i];
+            if (holes[i] == 0) value += holes[14 - i] * emptyCupScaling;
         for (int i = 8; i < 14; i++)
-            if (holes[i] == 0) value -= holes[14 - i];
+            if (holes[i] == 0) value -= holes[14 - i] * emptyCupScaling;
         //scoring is good
-        value += holes[7];
-        value -= holes[0];
+        value += holes[7] * scoreScaling;
+        value -= holes[0] * scoreScaling;
         //check for "move again" cups
         for (int i = 1; i < 7; i++)
-            if (holes[i] == (7-i)) value += 1;
+            if (holes[i] == (7-i)) value += moveAgainCupsScaling;
         for (int i = 8; i < 14; i++)
-            if (holes[i] == (i-7)) value -= 1;
+            if (holes[i] == (i-7)) value -= moveAgainCupsScaling;
         //having more stones on my side is good-ish
         for (int i = 1; i < 7; i++) sum1 += holes[i];
         for (int i = 8; i < 14; i++) sum2 += holes [i];
-        if (sum1 > sum2) value +=1;
-        else if (sum2 > sum1) value -= 1;
+        if (sum1 > sum2) value += moreStonesScaling;
+        else if (sum2 > sum1) value -= moreStonesScaling;
         break;
     case 2:
         //keeping right hand hole empty is good
-        if (holes[6] == 0) value -= 1;
-        if (holes[13] == 0) value += 1;
+        if (holes[6] == 0) value -= emptyRightScaling;
+        if (holes[13] == 0) value += emptyRightScaling;
         //an empty cup should add the value of the oposite one
         for (int i = 1; i < 7; i++)
-            if (holes[i] == 0) value -= holes[14 - i];
+            if (holes[i] == 0) value -= holes[14 - i] * emptyCupScaling;
         for (int i = 8; i < 14; i++)
-            if (holes[i] == 0) value += holes[14 - i];
+            if (holes[i] == 0) value += holes[14 - i] * emptyCupScaling;
         //scoring is good
-        value -= holes[7];
-        value += holes[0];
+        value -= holes[7] * scoreScaling;
+        value += holes[0] * scoreScaling;
         //check for "move again" cups
         for (int i = 1; i < 7; i++)
-            if (holes[i] == (7-i)) value -= 1;
+            if (holes[i] == (7-i)) value -= moveAgainCupsScaling;
         for (int i = 8; i < 14; i++)
-            if (holes[i] == (i-7)) value += 1;
+            if (holes[i] == (i-7)) value += moveAgainCupsScaling;
         //having more stones on my side is good-ish
         for (int i = 1; i < 7; i++) sum1 += holes[i];
         for (int i = 8; i < 14; i++) sum2 += holes [i];
-        if (sum1 > sum2) value -= 1;
-        else if (sum2 > sum1) value += 1;
+        if (sum1 > sum2) value -= moreStonesScaling;
+        else if (sum2 > sum1) value += moreStonesScaling;
         break;
     default:
         cerr << "Bad player value passed to gentryValue()" << endl;
@@ -168,4 +206,16 @@ bool Board::isLegal(int moveNumber, int player){
     if (holes[moveNumber] == 0) return false;
     //move is legal
     return true;
+}
+
+bool Board::isFinished(){
+    return finished;
+}
+
+int Board::getScore1(){
+    return holes[7];
+}
+
+int Board::getScore2(){
+    return holes[0];
 }

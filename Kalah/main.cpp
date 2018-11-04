@@ -9,6 +9,13 @@ using namespace std;
 
 //Player 1 is "bottom" player, Player 2 is the "top"
 
+const int GentryAlgorithm = 1;
+const int VishalAlgorithm = 2;
+const int MinMaxAB = 1;
+const int ABSearch = 2;
+const int TopPlayer = 2;
+const int BottomPlayer = 1;
+
 int main()
 {
     int player = 1;
@@ -32,8 +39,6 @@ int main()
     board.draw();
     board.setValue(1, player);
     cout << "This board is worth " << board.getValue() << " to Player " << player << endl;
-
-    board.vishalValue();
 
 
     return 0;

@@ -27,4 +27,25 @@ Tree::Tree(int value, int search, int depth, int player){
     buildTree();
 }
 
-void Tree::buildTree(){;}
+//TODO: figure this shit out
+void Tree::buildTree(){
+    int currentDepth = 0;
+    int currentChild = 0;
+    boardNode * currentBoard = root;
+    boardNode * pointerList[depth];
+    pointerList[0] = root;
+
+    while (currentDepth < depth){
+        for (int i = 0; i < 6; i++){
+            if (*currentBoard.board.isLegal(i, player);
+                *currentBoard.board.children[i] = new Board(currentBoard.board);
+                *currentBoard.board.children[i].move(i);
+            }
+            else {
+                *currentBoard.board.children[i] = NULL;
+            }
+        }
+        pointerList[depth] = currentBoard;
+        currentBoard = *currentBoard.children[currentChild];
+    }
+}

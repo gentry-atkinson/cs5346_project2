@@ -34,6 +34,13 @@ void Tree::buildTree(){
     boardNode * currentBoard = root;
     boardNode * pointerList[depth];
     pointerList[0] = root;
+
+    //create the board for the boardNode
+    //move to next board on level
+    //move to next level down
+    //if currentDepth == max depth quit
+
+
     /*
     while (currentDepth < depth){
         for (int i = 0; i < 6; i++){
@@ -69,4 +76,5 @@ void Tree::buildTree(){
             cerr << "Bad child in buildTree" << endl;
     }
     */
+    return;
 }

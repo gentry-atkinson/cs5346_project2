@@ -4,7 +4,7 @@
 #include "Board.h"
 
 struct boardNode{
-    Board board;
+    Board* board;
     boardNode * children[6];
 };
 

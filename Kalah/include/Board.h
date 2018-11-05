@@ -11,11 +11,13 @@ class Board
         void draw();
         int move(int hole, int player);
         void setValue(int algorithm, int player);
+        void setValue (int newValue);
         int getValue();
         bool isLegal(int moveNumber, int player);
         bool isFinished();
         int getScore1();
         int getScore2();
+        Board& operator= (const Board& other);
 
     protected:
 

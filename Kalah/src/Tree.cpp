@@ -3,78 +3,52 @@
 Tree::Tree()
 {
     depth = 3;
-    root = new boardNode;
     player = 1;
     valueAlgorithm = 1;
     searchAlgorithm = 1;
+    boards[259];
+    totalBoards = 259;
 
     buildTree();
 }
 
 Tree::~Tree()
 {
-   for(int i = 0; i < 7; i++ )delete root->children[i];
-   delete root;
+   delete[] boards;
 }
 
 Tree::Tree(int value, int search, int depth, int player){
     this->depth = depth;
-    root = new boardNode;
     valueAlgorithm = value;
     searchAlgorithm = search;
     this->player = player;
 
+    totalBoards = 1;
+    for (int i = 1; i <= depth; i++)
+        totalBoards += 6^i;
+    boards = new Board[totalBoards];
+
     buildTree();
+}
+
+int Tree::getChildIndex(int parentIndex, int childNumber){
+    return (6*parentIndex + childNumber);
+}
+
+int Tree::getParentIndex(int childIndex){
+    return ((childIndex-1)/6);
 }
 
 //TODO: figure this shit out
 void Tree::buildTree(){
-    int currentDepth = 0;
-    int nextChild = 0;
-    boardNode * currentBoard = root;
-    boardNode * pointerList[depth];
-    pointerList[0] = root;
-
-    //create the board for the boardNode
-    //move to next board on level
-    //move to next level down
-    //if currentDepth == max depth quit
-
-
-    /*
-    while (currentDepth < depth){
-        for (int i = 0; i < 6; i++){
-            if (currentBoard->board.isLegal(i, player));
-                currentBoard->children[i].board = new Board(currentBoard->board);
-                currentBoard->children[i].board.move(i);
-            }
-            else {
-                currentBoard->board.children[i] = NULL;
-            }
+    int child;
+    for (int i = 0; i < depth; i++){
+        for (int j = 1; j <= 6; j++){
+            child = 6*i+j;
+            boards[child] = boards[getParentIndex(child)];
+            if (boards[child].isLegal(j, player))
+                boards[child].move(j, player);
         }
-        switch(nextChild){
-        case 0:
-            pointerList[currentDepth] = currentBoard;
-            currentBoard = *currentBoard.children[nextChild];
-            currentDepth += 1;
-            nextChild += 1;
-            break;
-        }
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-            currentBoard = pointerList[depth-1];
-            currentBoard = *currentBoard.children[nextChild];
-            if (currentBoard == NULL) continue;
-            nextChild += 1;
-            break;
-        case 6:
-            break;
-        default:
-            cerr << "Bad child in buildTree" << endl;
     }
-    */
     return;
 }

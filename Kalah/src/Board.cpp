@@ -21,15 +21,7 @@ Board::~Board()
     //dtor
 }
 
-//TODO: print it more pretty
 void Board::draw(){
-    //    cout << "\t" << holes[13] << " " << holes[12] << " " << holes[11] << " " << holes[10] << " " << holes[9] << " " << holes[8] << endl;
-    //    cout << holes[0] << "\t\t\t" << holes[7] << endl;
-    //    cout << "\t" << holes[1] << " " << holes[2] << " " << holes[3] << " " << holes[4] << " " << holes[5] << " " << holes[6] << endl << endl;
-    //    return;
-    
-    
-    
     //line 1
     cout << "P1 : ";
     for(int i=(2*6); i>6; i--)
@@ -41,8 +33,8 @@ void Board::draw(){
         }
     }
     cout<<endl;
-    
-    
+
+
     //line 2
     cout << " ----";
     for(int i=6; i>0; i--)
@@ -50,8 +42,8 @@ void Board::draw(){
         cout << "---";
     }
     cout << "---" <<  endl;
-    
-    
+
+
     //line 3
     cout << " |  |";
     for(int i=(2*6); i>6; i--)
@@ -67,8 +59,8 @@ void Board::draw(){
         }
     }
     cout << "  |" << endl;
-    
-    
+
+
     //line 4
     cout << " |" << holes[(2*6+1)];
     if (holes[2*6+1] < 10)
@@ -91,8 +83,8 @@ void Board::draw(){
         cout << "|";
     }
     cout << endl;
-    
-    
+
+
     //line 5
     cout << " |  |";for(int i=0; i<6; i++)
     {
@@ -107,8 +99,8 @@ void Board::draw(){
         }
     }
     cout << "  |" << endl;
-    
-    
+
+
     //line 6
     cout << " ----";
     for(int i=6; i>0; i--)
@@ -116,8 +108,8 @@ void Board::draw(){
         cout << "---";
     }
     cout << "---" << endl;
-    
-    
+
+
     //line 7
     cout << "P2 : ";
     for(int i=0; i<6; i++)
@@ -131,8 +123,8 @@ void Board::draw(){
             cout <<i<<"|";
         }
     } cout<<endl;
-    
-    
+
+
     return;
 }
 
@@ -141,10 +133,10 @@ void Board::draw(){
 int Board::move(int hole, int player){
     int sum1, sum2;
     int stones = holes[hole];
-    
+
     //empty moved cup
     holes[hole] = 0;
-    
+
     //distribute stones
     hole += 1;
     while (stones > 0){
@@ -155,7 +147,7 @@ int Board::move(int hole, int player){
         if (player == 2 && hole == 7) hole++;
         stones--;
     }
-    
+
     //if one player's holes are empty, game is over
     for (int i = 1; i < 7; i++)
         sum1 += holes[i];
@@ -175,11 +167,11 @@ int Board::move(int hole, int player){
         finished = true;
         return 0;
     }
-    
+
     //check for repeat turn
     if (player == 1 && hole == 7) return player;
     if (player == 2 && hole == 0) return player;
-    
+
     //if no repeat turn, then switch player
     return player==1?2:1;
 }
@@ -200,14 +192,14 @@ int Board::getValue() {return value;}
 int Board::gentryValue(int player){
     //Player 1 = bottom player
     //Player 2 = top player
-    
+
     //Tuning Parameters
     int emptyRightScaling = 1;
     int emptyCupScaling = 1;
     int scoreScaling = 5;
     int moveAgainCupsScaling = 2;
     int moreStonesScaling = 1;
-    
+
     int value = 0, sum1 = 0, sum2 = 0;
     switch (player) {
         case 1:
@@ -263,13 +255,13 @@ int Board::gentryValue(int player){
 }
 
 int Board::vishalValue(){
-    
+
     int store[5];
     int counter=0;
-    
+
     //So if i find an empty pit in my end and see how many stones are present in the opposite end,
     // grab all the stones in the next move;
-    
+
     for(int i=1;i<7;i++)
     {
         if(holes[i]==0)
@@ -281,11 +273,11 @@ int Board::vishalValue(){
     cout<<"---------"<<endl;
     for(int i=0;i<counter;i++)
     {
-        
+
         cout<<store[i]<<" "; // found empty pits in my end;
     }
     cout<<endl<<"---------"<<endl;
-    
+
     int oppvalue=0;
     int high =8;
     for(int i=13; i>7 ; i--)
@@ -294,14 +286,14 @@ int Board::vishalValue(){
             high=i;
     }
     cout<<endl<<"Highest value in the opp end"<<endl<<high<<endl;
-    
+
     //check for the opp end ascending order and try to attack!
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 }
 
 bool Board::isLegal(int moveNumber, int player){
@@ -326,4 +318,17 @@ int Board::getScore1(){
 
 int Board::getScore2(){
     return holes[0];
+}
+
+Board& Board::operator= (const Board& other){
+    if (this == &other) return *this;
+    for (int i = 0; i < 14; i++)
+        holes[i]= other.holes[i];
+    value = other.value;
+    finished = other.finished;
+    return *this;
+}
+
+void Board::setValue(int newValue){
+    value = newValue;
 }

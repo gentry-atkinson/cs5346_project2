@@ -3,11 +3,6 @@
 
 #include "Board.h"
 
-struct boardNode{
-    Board* board;
-    boardNode * children[6];
-};
-
 
 class Tree
 {
@@ -20,11 +15,14 @@ class Tree
     private:
 
         int depth;
-        boardNode * root;
         int player;
         int valueAlgorithm;
         int searchAlgorithm;
+        Board * boards;
+        int totalBoards;
 
+        int getChildIndex(int parentIndex, int childNumber);
+        int getParentIndex(int childIndex);
         void buildTree();
         void minMaxAB();
         void aBSearch();

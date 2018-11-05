@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Board.h"
+#include "Tree.h"
 
 using namespace std;
 
@@ -18,27 +19,11 @@ const int BottomPlayer = 1;
 
 int main()
 {
-    int player = 1;
-    Board board;
-    board.draw();
-    board.setValue(1, player);
-    cout << "This board is worth " << board.getValue() << " to Player " << player << endl;
-    player = board.move(1, player);
-    board.draw();
-    board.setValue(1, player);
-    cout << "This board is worth " << board.getValue() << " to Player " << player << endl;
-    player = board.move(6, player);
-    board.draw();
-    board.setValue(1, player);
-    cout << "This board is worth " << board.getValue() << " to Player " << player << endl;
-    player = board.move(13, player);
-    board.draw();
-    board.setValue(1, player);
-    cout << "This board is worth " << board.getValue() << " to Player " << player << endl;
-    player = board.move(5, player);
-    board.draw();
-    board.setValue(1, player);
-    cout << "This board is worth " << board.getValue() << " to Player " << player << endl;
+    Tree playerOneTree;
+    Tree playerTwoTree(1, 1, 3, 2);
+
+    playerOneTree.drawRoot();
+    playerTwoTree.drawRoot();
 
 
     return 0;

@@ -18,7 +18,6 @@ Board::Board(const Board& toCopy){
 
 Board::~Board()
 {
-    //dtor
 }
 
 void Board::draw(){
@@ -289,9 +288,7 @@ int Board::vishalValue(){
 
     //check for the opp end ascending order and try to attack!
 
-
-
-
+    return 0;
 
 
 }

@@ -140,6 +140,34 @@ int Tree::minMaxAB(int index, int depth, int player, int useThresh, int passThre
     //update tree
 
 //TODO: make this work for repeat turns
+
+
+
+int Tree::aBSearch(){
+//    function ALPHA-BETA-SEARCH(state) returns an action
+//    v ←MAX-VALUE(state,−∞,+∞)
+//    return the action in ACTIONS(state) with value v
+
+//    function MAX-VALUE(state, α, β) returns a utility value
+//    if TERMINAL-TEST(state) then return UTILITY(state)
+//    v ← −∞
+//    for each a in ACTIONS(state) do
+//    v ← MAX(v, MIN-VALUE(RESULT(s,a), α, β))
+//    if v ≥ β then return v
+//    α←MAX(α, v)
+//    return v
+
+//    function MIN-VALUE(state, α, β) returns a utility value
+//    if TERMINAL-TEST(state) then return UTILITY(state)
+//    v ← +∞
+//    for each a in ACTIONS(state) do
+//    v ← MIN(v, MAX-VALUE(RESULT(s,a) , α, β))
+//    if v ≤ α then return v
+//    β ← MIN(β, v)
+//  return v
+
+
+}
 int Tree::play(int lastMove, bool& finished, int& player){
     int bestMove = player==1?1:8;
     if (lastMove != 99){

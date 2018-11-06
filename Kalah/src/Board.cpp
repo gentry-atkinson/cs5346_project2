@@ -156,16 +156,18 @@ int Board::move(int hole, int player){
         holes[0] += sum2;
         for (int i = 8; i < 14; i++)
             holes[i] = 0;
-        finished = true;
-        return 0;
     }
     if (sum2 == 0){
         holes[7] += sum2;
         for (int i = 1; i < 7; i++)
             holes[i] = 0;
-        finished = true;
-        return 0;
     }
+
+    //actually, if one player scores with half the stones, game is over
+    if (getScore1() > 36)
+        finished = true;
+    if (getScore2() > 36)
+        finished = true;
 
     //check for repeat turn
     if (player == 1 && hole == 7) return player;

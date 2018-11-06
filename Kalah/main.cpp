@@ -25,6 +25,22 @@ int main()
     playerOneTree.drawRoot();
     playerTwoTree.drawRoot();
 
+    int player = 1;
+    bool finished = false;
+    int lastMove = 99;
+
+    while (!finished){
+        if (player == 1){
+            lastMove = playerOneTree.play(lastMove, finished, player);
+            playerTwoTree.play(lastMove, finished, player);
+        }
+        else{
+            lastMove = playerTwoTree.play(lastMove, finished, player);
+            playerOneTree.play(lastMove, finished, player);
+        }
+    }
+    playerOneTree.drawRoot();
+
 
     return 0;
 }

@@ -186,6 +186,11 @@ void Board::setValue(int algorithm, int player){
     }
 }
 
+
+void Board::setValue(int newValue){
+    value = newValue;
+}
+
 int Board::getValue() {return value;}
 
 int Board::gentryValue(int player){
@@ -326,6 +331,3 @@ Board& Board::operator= (const Board& other){
     return *this;
 }
 
-void Board::setValue(int newValue){
-    value = newValue;
-}

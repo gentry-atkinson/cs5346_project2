@@ -141,8 +141,10 @@ int Tree::minMaxAB(int index, int depth, int player, int useThresh, int passThre
 //TODO: make this work for repeat turns
 int Tree::play(int lastMove, bool& finished, int& player){
     int bestMove = player==1?1:8;
-    boards[0].move(lastMove, player);
-    buildTree();
+    if (lastMove != 99){
+        boards[0].move(lastMove, player);
+        buildTree();
+    }
 
     if (player == this->player){
         for (int i = player==1?2:9; i < player==1?7:14; i++)
@@ -152,6 +154,7 @@ int Tree::play(int lastMove, bool& finished, int& player){
         player = boards[0].move(bestMove, player);
         buildTree();
         finished = boards[0].isFinished();
+        cout << "Player " << player << " moves hole " << bestMove << endl;
         return bestMove;
     }
     else {

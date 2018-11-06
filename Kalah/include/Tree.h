@@ -14,7 +14,7 @@ class Tree
         Tree();
         Tree(int value, int search, int depth, int player);
         ~Tree();
-        int play(int lastMove, bool * finished);
+        int play(int lastMove, bool& finished, int& player);
         void drawRoot();
 
     private:

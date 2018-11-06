@@ -127,3 +127,34 @@ int Tree::minMaxAB(int index, int depth, int player, int useThresh, int passThre
     return passThresh;
 
 }
+
+
+//if same player's move
+    //select best move from 6 children
+    //update tree
+    //update player
+    //update finished
+    //return best move
+//if opposite player
+    //update tree
+
+//TODO: make this work for repeat turns
+int Tree::play(int lastMove, bool& finished, int& player){
+    int bestMove = player==1?1:8;
+    boards[0].move(lastMove, player);
+    buildTree();
+
+    if (player == this->player){
+        for (int i = player==1?2:9; i < player==1?7:14; i++)
+            if (boards[i].isLegal(i, player))
+                if (boards[i].getValue() > boards[bestMove].getValue())
+                    bestMove = i;
+        player = boards[0].move(bestMove, player);
+        buildTree();
+        finished = boards[0].isFinished();
+        return bestMove;
+    }
+    else {
+        return 99;
+    }
+}

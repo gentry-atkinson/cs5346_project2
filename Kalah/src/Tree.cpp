@@ -63,7 +63,7 @@ void Tree::buildTree(){
                 boards[child].move(j, player);
         }
     }
-    //cout << "Tree done." << endl;
+    cout << "Tree done." << endl;
 
     switch(searchAlgorithm){
     case 1:
@@ -81,6 +81,7 @@ void Tree::buildTree(){
 }
 
 int Tree::minMaxAB(int index, int depth, int player, int useThresh, int passThresh) {
+    cout << "MinMax called for depth " << depth << endl;
     int newValue;
     int resultSucc;
 //Algorithm: MINIMAX-A-B( Position, Depth, Player, Use-Thresh, Pass-Thresh )

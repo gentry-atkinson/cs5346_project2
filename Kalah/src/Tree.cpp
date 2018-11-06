@@ -130,19 +130,6 @@ int Tree::minMaxAB(int index, int depth, int player, int useThresh, int passThre
 }
 
 
-//if same player's move
-    //select best move from 6 children
-    //update tree
-    //update player
-    //update finished
-    //return best move
-//if opposite player
-    //update tree
-
-//TODO: make this work for repeat turns
-
-
-
 int Tree::aBSearch(){
 //    function ALPHA-BETA-SEARCH(state) returns an action
 //    v ←MAX-VALUE(state,−∞,+∞)
@@ -168,23 +155,48 @@ int Tree::aBSearch(){
 
 
 }
+
+//if same player's move
+    //select best move from 6 children
+    //update tree
+    //update player
+    //update finished
+    //return best move
+//if opposite player
+    //update tree
+
 int Tree::play(int lastMove, bool& finished, int& player){
-    int bestMove = player==1?1:8;
+    cout << "Player " << player << " is moving." << endl;
+    int bestMove = 1;
+    if (player == 2)  bestMove = 8;
+
+    int i = 1, bound = 7;
+    if (player == 2){
+        i = 8;
+        bound = 14;
+    }
+
     if (lastMove != 99){
         boards[0].move(lastMove, player);
         buildTree();
     }
 
     if (player == this->player){
-        for (int i = player==1?2:9; i < player==1?7:14; i++)
+        for (; i < bound; i++){
+            cout << i << " ";
             if (boards[i].isLegal(i, player))
                 if (boards[i].getValue() > boards[bestMove].getValue())
                     bestMove = i;
+        }
+        cout << "Player " << " selects hole " << bestMove << endl;
         player = boards[0].move(bestMove, player);
         buildTree();
         finished = boards[0].isFinished();
         cout << "Player " << player << " moves hole " << bestMove << endl;
-        return bestMove;
+        if (player == this-> player)
+            return 99;
+        else
+            return bestMove;
     }
     else {
         return 99;

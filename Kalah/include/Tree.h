@@ -29,7 +29,7 @@ class Tree
         int getChildIndex(int parentIndex, int childNumber);
         int getParentIndex(int childIndex);
         void buildTree();
-        void minMaxAB();
+        int minMaxAB(int index, int depth, int player, int useThresh, int passThresh);
         void aBSearch();
 
 };

@@ -32,8 +32,8 @@ void Board::draw(){
         }
     }
     cout<<endl;
-
-
+    
+    
     //line 2
     cout << " ----";
     for(int i=6; i>0; i--)
@@ -41,8 +41,8 @@ void Board::draw(){
         cout << "---";
     }
     cout << "---" <<  endl;
-
-
+    
+    
     //line 3
     cout << " |  |";
     for(int i=(2*6); i>6; i--)
@@ -58,8 +58,8 @@ void Board::draw(){
         }
     }
     cout << "  |" << endl;
-
-
+    
+    
     //line 4
     cout << " |" << holes[(2*6+1)];
     if (holes[2*6+1] < 10)
@@ -82,8 +82,8 @@ void Board::draw(){
         cout << "|";
     }
     cout << endl;
-
-
+    
+    
     //line 5
     cout << " |  |";for(int i=0; i<6; i++)
     {
@@ -98,8 +98,8 @@ void Board::draw(){
         }
     }
     cout << "  |" << endl;
-
-
+    
+    
     //line 6
     cout << " ----";
     for(int i=6; i>0; i--)
@@ -107,8 +107,8 @@ void Board::draw(){
         cout << "---";
     }
     cout << "---" << endl;
-
-
+    
+    
     //line 7
     cout << "P2 : ";
     for(int i=0; i<6; i++)
@@ -122,20 +122,20 @@ void Board::draw(){
             cout <<i<<"|";
         }
     } cout<<endl;
-
-
+    
+    
     return;
 }
 
 
 
 int Board::move(int hole, int player){
-    int sum1, sum2;
+    int sum1 = 0, sum2 = 0;
     int stones = holes[hole];
-
+    
     //empty moved cup
     holes[hole] = 0;
-
+    
     //distribute stones
     hole += 1;
     while (stones > 0){
@@ -146,7 +146,7 @@ int Board::move(int hole, int player){
         if (player == 2 && hole == 7) hole++;
         stones--;
     }
-
+    
     //if one player's holes are empty, game is over
     for (int i = 1; i < 7; i++)
         sum1 += holes[i];
@@ -162,17 +162,17 @@ int Board::move(int hole, int player){
         for (int i = 1; i < 7; i++)
             holes[i] = 0;
     }
-
+    
     //actually, if one player scores with half the stones, game is over
     if (getScore1() > 36)
         finished = true;
     if (getScore2() > 36)
         finished = true;
-
+    
     //check for repeat turn
     if (player == 1 && hole == 7) return player;
     if (player == 2 && hole == 0) return player;
-
+    
     //if no repeat turn, then switch player
     return player==1?2:1;
 }
@@ -183,7 +183,7 @@ void Board::setValue(int algorithm, int player){
             value = gentryValue(player);
             break;
         case 2:
-            value = vishalValue();
+            value = vishalValue(player);
             break;
     }
 }
@@ -198,14 +198,14 @@ int Board::getValue() {return value;}
 int Board::gentryValue(int player){
     //Player 1 = bottom player
     //Player 2 = top player
-
+    
     //Tuning Parameters
     int emptyRightScaling = 1;
     int emptyCupScaling = 1;
     int scoreScaling = 5;
     int moveAgainCupsScaling = 2;
     int moreStonesScaling = 1;
-
+    
     int value = 0, sum1 = 0, sum2 = 0;
     switch (player) {
         case 1:
@@ -260,31 +260,35 @@ int Board::gentryValue(int player){
     return value;
 }
 
-int Board::vishalValue(){
-
-    int store[5];
+int Board::vishalValue(int player){
+    
+    int store1[5];
     int counter=0;
-
+    int score=0;
+    int GrabFromEmpty = 200;
+    int MakeAscending = 100;
+    int search =0;
+    
     //So if i find an empty pit in my end and see how many stones are present in the opposite end,
     // grab all the stones in the next move;
-
+    
     for(int i=1;i<7;i++)
     {
         if(holes[i]==0)
         {
-            store[counter]=i;
+            store1[counter]=i;
             counter++;
         }
     }
     cout<<"---------"<<endl;
     for(int i=0;i<counter;i++)
     {
-
-        cout<<store[i]<<" "; // found empty pits in my end;
+        
+        cout<<store1[i]<<" "; // found empty pits in my end;
     }
     cout<<endl<<"---------"<<endl;
-
-    int oppvalue=0;
+    
+    // int oppvalue=0;
     int high =8;
     for(int i=13; i>7 ; i--)
     {
@@ -292,12 +296,79 @@ int Board::vishalValue(){
             high=i;
     }
     cout<<endl<<"Highest value in the opp end"<<endl<<high<<endl;
-
+    int size = sizeof(store1)/store1[0];
+    
+    switch (player) {
+        case 1:
+            for(int i=0;i<size;i++)
+            {
+                score=0;
+                search=store1[i];
+                if(search ==0)
+                {
+                    if(holes[search+1]==12 || holes[search+2]==11 || holes[search+3]==10 || holes[search+4]==9||holes[search+5]==8)
+                    {
+                        score+=GrabFromEmpty;
+                    }
+                    return score;
+                }
+                else if(search ==1)
+                {
+                    if(holes[search+1]==12 || holes[search+2]==11 || holes[search+3]==10 || holes[search+4]==9 || holes[search-1]==1)
+                    {
+                        score+=GrabFromEmpty;
+                    }
+                    return score;
+                }
+                else if(search ==2)
+                {
+                    if(holes[search+1]==12 || holes[search+2]==11 || holes[search+3]==10||holes[search-1]==1||holes[search-2]==2)
+                    {
+                        score+=GrabFromEmpty;
+                    }
+                    return score;
+                }
+                else if(search ==3)
+                {
+                    if(holes[search+1]==12 || holes[search+2]==11||holes[search-1]==1||holes[search-2]==2||holes[search-3]==3)
+                    {
+                        score+=GrabFromEmpty;
+                    }
+                    return score;
+                }
+                else if(search ==4)
+                {
+                    if(holes[search+1]==12 || holes[search-1]==1|| holes[search-2]==2|| holes[search-3]==3|| holes[search-4]==4)
+                    {
+                        score+=GrabFromEmpty;
+                    }
+                    return score;
+                }
+                else if(search ==5)
+                {
+                    if(holes[search-1]==1|| holes[search-2]==2|| holes[search-3]==3|| holes[search-4]==4 || holes[search-5]==5)
+                    {
+                        score+=GrabFromEmpty;
+                    }
+                    return score;
+                }
+                //Will have to cover the other player's holes as well!
+                
+            }
+            break;
+            
+        default:
+            break;
+    }
+    
+    
+    
+    
     //check for the opp end ascending order and try to attack!
-
-    return 0;
-
-
+    
+    return score;
+    
+    
 }
 
 bool Board::isLegal(int moveNumber, int player){

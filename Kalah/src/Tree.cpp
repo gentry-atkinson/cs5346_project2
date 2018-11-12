@@ -164,7 +164,7 @@ int Tree::aBSearch(){
     //return best move
 //if opposite player
     //update tree
-
+//TODO: players are making illegal moves and always making the same move.
 int Tree::play(int lastMove, bool& finished, int& player){
     cout << "Player " << player << " is moving." << endl;
     int bestMove = 1;
@@ -172,7 +172,7 @@ int Tree::play(int lastMove, bool& finished, int& player){
 
     int i = 1, bound = 7;
     if (player == 2){
-        i = 8;
+        i = 7;
         bound = 14;
     }
 

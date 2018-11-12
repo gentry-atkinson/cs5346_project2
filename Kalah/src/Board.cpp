@@ -153,15 +153,18 @@ int Board::move(int hole, int player){
         sum1 += holes[i];
     for (int i = 8; i < 14; i++)
         sum2 += holes[i];
+
     if (sum1 == 0){
         holes[0] += sum2;
         for (int i = 8; i < 14; i++)
             holes[i] = 0;
+            finished = true;
     }
     if (sum2 == 0){
         holes[7] += sum2;
         for (int i = 1; i < 7; i++)
             holes[i] = 0;
+            finished = true;
     }
 
     //actually, if one player scores with half the stones, game is over
@@ -374,8 +377,8 @@ int Board::vishalValue(int player){
 
 bool Board::isLegal(int moveNumber, int player){
     //players cannot play other player's cups
-    if (player == 1 && moveNumber > 7) return false;
-    if (player == 2 && moveNumber < 7) return false;
+    if (player == 1 && moveNumber > 6) return false;
+    if (player == 2 && moveNumber < 8) return false;
     //neither player can move kalahs
     if (moveNumber == 0 || moveNumber == 7) return false;
     //player cannot move an empty hole

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 #include "Board.h"
 #include "Tree.h"
 
@@ -38,6 +39,8 @@ int main()
             lastMove = playerTwoTree.play(lastMove, finished, player);
             playerOneTree.play(lastMove, finished, player);
         }
+
+        getchar();
     }
     playerOneTree.drawRoot();
 

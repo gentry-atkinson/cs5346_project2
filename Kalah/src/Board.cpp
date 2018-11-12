@@ -22,7 +22,7 @@ Board::~Board()
 
 void Board::draw(){
     //line 1
-    cout << "P1 : ";
+    cout << "P2 : ";
     for(int i=(2*6); i>6; i--)
     {
         if (i < 10) {
@@ -32,8 +32,8 @@ void Board::draw(){
         }
     }
     cout<<endl;
-    
-    
+
+
     //line 2
     cout << " ----";
     for(int i=6; i>0; i--)
@@ -41,11 +41,11 @@ void Board::draw(){
         cout << "---";
     }
     cout << "---" <<  endl;
-    
-    
+
+
     //line 3
     cout << " |  |";
-    for(int i=(2*6); i>6; i--)
+    for(int i=13; i>7; i--)
     {
         cout << holes[i];
         if (holes[i]<10)
@@ -58,10 +58,10 @@ void Board::draw(){
         }
     }
     cout << "  |" << endl;
-    
-    
+
+
     //line 4
-    cout << " |" << holes[(2*6+1)];
+    cout << " |" << holes[0];
     if (holes[2*6+1] < 10)
     {
         cout << " |";
@@ -72,8 +72,8 @@ void Board::draw(){
     {
         cout << "--+";
     }
-    cout << "--|" << holes[6];
-    if (holes[6]<10)
+    cout << "--|" << holes[7];
+    if (holes[7]<10)
     {
         cout << " |";
     }
@@ -82,10 +82,11 @@ void Board::draw(){
         cout << "|";
     }
     cout << endl;
-    
-    
+
+
     //line 5
-    cout << " |  |";for(int i=0; i<6; i++)
+    cout << " |  |";
+    for(int i=1; i<7; i++)
     {
         cout << holes[i];
         if (holes[i]<10)
@@ -98,8 +99,8 @@ void Board::draw(){
         }
     }
     cout << "  |" << endl;
-    
-    
+
+
     //line 6
     cout << " ----";
     for(int i=6; i>0; i--)
@@ -107,8 +108,8 @@ void Board::draw(){
         cout << "---";
     }
     cout << "---" << endl;
-    
-    
+
+
     //line 7
     cout << "P2 : ";
     for(int i=0; i<6; i++)
@@ -122,8 +123,8 @@ void Board::draw(){
             cout <<i<<"|";
         }
     } cout<<endl;
-    
-    
+
+
     return;
 }
 
@@ -132,10 +133,10 @@ void Board::draw(){
 int Board::move(int hole, int player){
     int sum1 = 0, sum2 = 0;
     int stones = holes[hole];
-    
+
     //empty moved cup
     holes[hole] = 0;
-    
+
     //distribute stones
     hole += 1;
     while (stones > 0){
@@ -146,7 +147,7 @@ int Board::move(int hole, int player){
         if (player == 2 && hole == 7) hole++;
         stones--;
     }
-    
+
     //if one player's holes are empty, game is over
     for (int i = 1; i < 7; i++)
         sum1 += holes[i];
@@ -162,17 +163,17 @@ int Board::move(int hole, int player){
         for (int i = 1; i < 7; i++)
             holes[i] = 0;
     }
-    
+
     //actually, if one player scores with half the stones, game is over
     if (getScore1() > 36)
         finished = true;
     if (getScore2() > 36)
         finished = true;
-    
+
     //check for repeat turn
     if (player == 1 && hole == 7) return player;
     if (player == 2 && hole == 0) return player;
-    
+
     //if no repeat turn, then switch player
     return player==1?2:1;
 }
@@ -198,14 +199,14 @@ int Board::getValue() {return value;}
 int Board::gentryValue(int player){
     //Player 1 = bottom player
     //Player 2 = top player
-    
+
     //Tuning Parameters
     int emptyRightScaling = 1;
     int emptyCupScaling = 1;
     int scoreScaling = 5;
     int moveAgainCupsScaling = 2;
     int moreStonesScaling = 1;
-    
+
     int value = 0, sum1 = 0, sum2 = 0;
     switch (player) {
         case 1:
@@ -261,17 +262,17 @@ int Board::gentryValue(int player){
 }
 
 int Board::vishalValue(int player){
-    
+
     int store1[5];
     int counter=0;
     int score=0;
     int GrabFromEmpty = 200;
     int MakeAscending = 100;
     int search =0;
-    
+
     //So if i find an empty pit in my end and see how many stones are present in the opposite end,
     // grab all the stones in the next move;
-    
+
     for(int i=1;i<7;i++)
     {
         if(holes[i]==0)
@@ -283,11 +284,11 @@ int Board::vishalValue(int player){
     cout<<"---------"<<endl;
     for(int i=0;i<counter;i++)
     {
-        
+
         cout<<store1[i]<<" "; // found empty pits in my end;
     }
     cout<<endl<<"---------"<<endl;
-    
+
     // int oppvalue=0;
     int high =8;
     for(int i=13; i>7 ; i--)
@@ -297,7 +298,7 @@ int Board::vishalValue(int player){
     }
     cout<<endl<<"Highest value in the opp end"<<endl<<high<<endl;
     int size = sizeof(store1)/store1[0];
-    
+
     switch (player) {
         case 1:
             for(int i=0;i<size;i++)
@@ -353,22 +354,22 @@ int Board::vishalValue(int player){
                     return score;
                 }
                 //Will have to cover the other player's holes as well!
-                
+
             }
             break;
-            
+
         default:
             break;
     }
-    
-    
-    
-    
+
+
+
+
     //check for the opp end ascending order and try to attack!
-    
+
     return score;
-    
-    
+
+
 }
 
 bool Board::isLegal(int moveNumber, int player){

@@ -1,7 +1,8 @@
 //#include "alphabeta.h"
 
-#include "Tree.h"
+
 #include<iostream>
+#include "Tree.h"
 using namespace std;
 int alphabeta(Tree *node, int depth, int player, int alpha, int beta)
 {
@@ -27,7 +28,7 @@ int alphabeta(Tree *node, int depth, int player, int alpha, int beta)
     else
     {
         int bestVal = +100,value;
-        for(int i=7; i < 14 ; i++ )
+        for(int i=0; i < 6 ; i++ )
         {
             if(node->stones[i]== NULL)
                 continue;

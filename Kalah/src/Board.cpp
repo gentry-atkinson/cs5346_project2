@@ -5,14 +5,14 @@ using namespace std;
 
 Board::Board()
 {
-    value = 0;
+    //value = 0;
     finished = false;
 }
 
 Board::Board(const Board& toCopy){
     for (int i = 0; i < 14; i++)
         holes[i] = toCopy.holes[i];
-    value = toCopy.value;
+//    value = toCopy.value;
     finished = toCopy.finished;
 }
 
@@ -144,71 +144,224 @@ void Board::draw(){
 
 
 
-int Board::move(int hole, int player){
-    int sum1 = 0, sum2 = 0;
-    int stones = holes[hole];
+//int Board::move(int hole, int player){
+//    int sum1 = 0, sum2 = 0;
+//    int stones = holes[hole];
+//
+//    //empty moved cup
+//    holes[hole] = 0;
+//
+//    //distribute stones
+//    hole += 1;
+//    while (stones > 0){
+//        holes[hole]++;
+//        hole = (hole + 1)%14;
+//        //skip oponents kalah
+//        if (player == 1 && hole == 0) hole++;
+//        if (player == 2 && hole == 7) hole++;
+//        stones--;
+//    }
+//
+//    //if one player's holes are empty, game is over
+//    for (int i = 1; i < 7; i++)
+//        sum1 += holes[i];
+//    for (int i = 8; i < 14; i++)
+//        sum2 += holes[i];
+//
+//    if (sum1 == 0){
+//        holes[0] += sum2;
+//        for (int i = 8; i < 14; i++)
+//            holes[i] = 0;
+//        finished = true;
+//    }
+//    if (sum2 == 0){
+//        holes[7] += sum2;
+//        for (int i = 1; i < 7; i++)
+//            holes[i] = 0;
+//        finished = true;
+//    }
+//
+//    //actually, if one player scores with half the stones, game is over
+//    if (getScore1() > 36)
+//        finished = true;
+//    if (getScore2() > 36)
+//        finished = true;
+//
+//    //check for repeat turn
+//    if (player == 1 && hole == 7) return player;
+//    if (player == 2 && hole == 0) return player;
+//
+//    //if no repeat turn, then switch player
+//    return player==1?2:1;
+//}
 
-    //empty moved cup
-    holes[hole] = 0;
 
-    //distribute stones
-    hole += 1;
-    while (stones > 0){
-        holes[hole]++;
-        hole = (hole + 1)%14;
-        //skip oponents kalah
-        if (player == 1 && hole == 0) hole++;
-        if (player == 2 && hole == 7) hole++;
-        stones--;
+
+//Function to move for the A player
+int Board::move_p1(int hole)
+{
+    int tempPos = hole;
+    ptr = A;
+    int numberOfStones = ptr[tempPos];
+    ptr[tempPos] = 0;
+    int opponentPos, opponentStones;
+
+    tempPos++;
+    while(numberOfStones > 0)
+    {
+        if(tempPos >= 0 && tempPos <= 5)
+        {
+            if(numberOfStones == 1)
+            {
+                numberOfStones--;
+                opponentPos = numberOfSlots - tempPos;
+                if(ptr[tempPos] == 0 && B[opponentPos] > 0)
+                {
+                    ptr = B;
+                    opponentStones = ptr[opponentPos];
+                    ptr[opponentPos] = 0;
+                    player1 += opponentStones + 1;
+                    if(numberOfStones == 0)
+                        return 2;
+                }
+                else
+                {
+                    ptr[tempPos] += 1;
+                    if(numberOfStones == 0)
+                        return 2;
+                }
+            }
+            else if(numberOfStones > 1)
+            {
+                numberOfStones--;
+                ptr[tempPos]+=1;
+            }
+        }
+        else if(tempPos == 6 && numberOfStones >= 1)
+        {
+            numberOfStones--;
+            player1 += 1;
+            if(numberOfStones == 0)
+                return 1;
+        }
+        else if(tempPos > 6 && tempPos <= 12)
+        {
+            ptr = B;
+            numberOfStones--;
+            ptr[tempPos-7] += 1;
+            if(numberOfStones == 0)
+                return 2;
+        }
+        else if(tempPos >= 12)
+        {
+            tempPos = -1;
+            ptr = A;
+        }
+        tempPos++;
     }
-
-    //if one player's holes are empty, game is over
-    for (int i = 1; i < 7; i++)
-        sum1 += holes[i];
-    for (int i = 8; i < 14; i++)
-        sum2 += holes[i];
-
-    if (sum1 == 0){
-        holes[0] += sum2;
-        for (int i = 8; i < 14; i++)
-            holes[i] = 0;
-        finished = true;
-    }
-    if (sum2 == 0){
-        holes[7] += sum2;
-        for (int i = 1; i < 7; i++)
-            holes[i] = 0;
-        finished = true;
-    }
-
-    //actually, if one player scores with half the stones, game is over
-    if (getScore1() > 36)
-        finished = true;
-    if (getScore2() > 36)
-        finished = true;
-
-    //check for repeat turn
-    if (player == 1 && hole == 7) return player;
-    if (player == 2 && hole == 0) return player;
-
-    //if no repeat turn, then switch player
-    return player==1?2:1;
+    return 2;
 }
+
+//Function to move for the B player
+int Board::move_p2(int hole)
+{
+    int tempPos = hole;
+    ptr = B;
+    int numberOfStones = ptr[tempPos];
+    ptr[hole] = 0;
+    int opponentPos, opponentStones;
+
+    tempPos++;
+    while(numberOfStones > 0)
+    {
+        if(tempPos >= 0 && tempPos <= 5)
+        {
+            if(numberOfStones == 1)
+            {
+                numberOfStones--;
+                opponentPos = numberOfSlots - tempPos;
+                if(ptr[tempPos] == 0)
+                {
+                    ptr = A;
+                    opponentStones = ptr[opponentPos];
+                    ptr[opponentPos] = 0;
+                    player2 += opponentStones + 1;
+                    if(numberOfStones == 0)
+                        return 1;
+                }
+                else
+                {
+                    ptr[tempPos] += 1;
+                    if(numberOfStones == 0)
+                        return 1;
+                }
+            }
+            else if(numberOfStones > 1)
+            {
+                numberOfStones--;
+                ptr[tempPos]+=1;
+            }
+        }
+        else if(tempPos == 6 && numberOfStones >= 1)
+        {
+            numberOfStones--;
+            player2 += 1;
+            if(numberOfStones == 0)
+                return 2;
+        }
+        else if(tempPos > 6 && tempPos <= 12)
+        {
+            ptr = A;
+            numberOfStones--;
+            ptr[tempPos-7] += 1;
+            if(numberOfStones == 0)
+                return 1;
+        }
+        else if(tempPos >= 12)
+        {
+            tempPos = -1;
+            ptr = B;
+        }
+        tempPos++;
+    }
+    return 1;
+}
+
+
+
+int Board::move(int hole,int player)
+{
+    int v;
+    if(player == 1)
+        v = move_p1(hole);
+    else
+        v = move_p2(hole);
+    return v;
+}
+
+
+
+
+
+
+
+
+
 
 void Board::setValue(int algorithm, int player){
     switch (algorithm) {
         case 1:
-            value = gentryValue(player);
+//            value = gentryValue(player);
             break;
         case 2:
-            value = vishalValue(player);
+ //           value = vishalValue(player);
             break;
     }
 }
 
 
 void Board::setValue(int newValue){
-    value = newValue;
+        value = newValue;
 }
 
 int Board::getValue() {return value;}
@@ -470,7 +623,7 @@ Board& Board::operator= (const Board& other){
     if (this == &other) return *this;
     for (int i = 0; i < 14; i++)
         holes[i]= other.holes[i];
-    value = other.value;
+   value = other.value;
     finished = other.finished;
     return *this;
 }

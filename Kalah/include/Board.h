@@ -6,12 +6,15 @@ class Board
 {
 public:
     Board();
-    int player1,player2;
+    int *ptr;
+    int player1,player2,numberOfSlots;
     int A[6],B[6];
     Board(const Board& toCopy);
     Board(Board *);
     ~Board();
     void draw();
+    int move_p1(int);
+    int move_p2(int);
     int move(int hole, int player);
     void setValue(int algorithm, int player);
     void setValue (int newValue);

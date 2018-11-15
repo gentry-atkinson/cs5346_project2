@@ -3,9 +3,11 @@
 #include "Board.h"
 #include "Tree.h"
 #include "alphabeta.h"
+#include "minmaxAB.h"
 
 using namespace std;
 
+int steps;
 ////void Board::setValue(int algorithm, int player)
 ////pass 1 for Gentry's algorithm
 ////pass 2 for Vishal's algorithm
@@ -47,30 +49,77 @@ using namespace std;
 
 
 
-
-int main()
+void AlphaBeta()
 {
-    int count=0;
+     int steps=0;
     //Tree T;
     Board *b = new Board();
-    cout << "Initial board " << endl;
+    cout << "Initial board using AB :" << endl;
     b->draw();
     char win = b->isFinished();
-    char player = 'A';
+    int player = 1;
+
+    cout<<"Did i reach here ? "<<endl;
     //int start_s = clock();
     while(win == 'N')
     {
-        count++;
+        steps++;
         Tree *head = new Tree(player);
         head->copyBoardStatus(b);
         cout << "Player" << player <<" Turn :"<< endl;
-        alphabeta(head,0,1,1000,-1000);
+        alphabeta(head,0,player,1000,-1000);
         int hole = head->getHole();
         player = b->move(hole,player);
         b->draw();
         win = b->isFinished();
     }
     b->draw();
+}
+
+void MinMaxAB()
+{
+    Board *b = new Board();
+    cout << "Initial board using MinimaxAB :" << endl;
+    b->draw();
+    int win = b->isFinished();
+    int player = 1;
+    while(win == 'N')
+    {
+        steps++;
+        Tree *head = new Tree(player);
+        head->copyBoardStatus( b);
+        cout << "Player" << player <<" Turn :"<< endl;
+        minMaxAB(head,0,player,10000,-10000);
+        int hole = head->value;
+        cout<< "hole # "<<hole<<endl;
+        player = b->move(hole,player);
+        b->draw();
+        win = b->isFinished();
+    }
+    b->draw();
+
+}
+
+int main()
+{
+    int x;//user choice
+    cout<<"Lets play the game :" <<endl;
+
+    cout<<"Please select the algorithm with which you want to play"<<endl;
+    cin>>x;
+
+    switch(x)
+    {
+    case 1 :
+        MinMaxAB();
+        break;
+    case 2:
+        AlphaBeta();
+        break;
+    default:
+        cout<<"Please enter a valid choice : "<<endl;
+    }
+
     return 0;
 }
 //    return 0;

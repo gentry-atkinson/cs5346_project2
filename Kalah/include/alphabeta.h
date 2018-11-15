@@ -7,14 +7,5 @@
 using namespace std;
 
 int alphabeta(Tree *,int, int ,int ,int);
-//class alphabeta
-//{
-//    public:
-//        alphabeta();
-//
-//    protected:
-//
-//    private:
-//};
 
 #endif // ALPHABETA_H

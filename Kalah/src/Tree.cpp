@@ -197,7 +197,27 @@ void Tree::setValue(int value)
     value = value;
 }
 
+void Tree::print(Tree *n,int nestLevel)
 
+{
+
+    cout<<n->player<<":"<<n->value<<endl;
+
+    int i, j;
+
+    for (i = 0; n->stones[i] != NULL && i < 6; i++)
+
+    {
+
+        for (j = 0; j < nestLevel; j++)
+
+            cout<<"\t";
+
+        print(n->stones[i], nestLevel + 1);
+
+    }
+
+}
 void Tree :: grab_all_stones()
 {
 

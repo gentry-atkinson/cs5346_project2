@@ -6,14 +6,5 @@
 using namespace std;
 
 int minMaxAB(Tree *,int,int,int,int);
-//class minmaxAB
-//{
-//    public:
-//        minmaxAB();
-//
-//    protected:
-//
-//    private:
-//};
 
 #endif // MINMAXAB_H

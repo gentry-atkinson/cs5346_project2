@@ -23,6 +23,7 @@ public:
     void grab_all_stones();
 
     int getHole();
+    void print(Tree *,int );
 
 
     //private:

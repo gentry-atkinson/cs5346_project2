@@ -111,10 +111,10 @@ int main()
     switch(x)
     {
     case 1 :
-        MinMaxAB();
+        AlphaBeta();
         break;
     case 2:
-        AlphaBeta();
+        MinMaxAB();
         break;
     default:
         cout<<"Please enter a valid choice : "<<endl;

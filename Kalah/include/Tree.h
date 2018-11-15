@@ -11,14 +11,17 @@
 class Tree
 {
 public:
-    int value;
+    int value,stone;
     Tree();
+    Tree(int);
     Tree(int value, int search, int depth, int player);
     ~Tree();
     int play(int lastMove, bool& finished, int& player);
     void drawRoot();
-    Tree *children[14];
+    Tree *stones[14];
     Board bx;
+    void copyBoardStatus(Board kb);
+    int getHole();
     
     
     //private:

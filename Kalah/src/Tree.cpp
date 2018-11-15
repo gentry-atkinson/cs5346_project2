@@ -14,11 +14,22 @@ Tree::Tree()
     totalBoards = 259;
     for(int i=0;i<6;i++)
     {
-        children[i] = NULL;
+        stones[i] = NULL;
     }
     boards = new Board[totalBoards];
     
     buildTree();
+}
+
+Tree::Tree(int p)
+{
+    player = p;
+    value = -1000;
+    stone = 0;
+    for(int i=0;i<6;i++)
+    {
+        stones[i] = NULL;
+    }
 }
 
 Tree::~Tree()
@@ -103,14 +114,14 @@ int Tree::minMaxAB(Tree *index, int depth, int player, int useThresh, int passTh
     
     for(int i = 0 ; i < 14; i++)
     {
-        if(index->children[i] == NULL)
+        if(index->stones[i] == NULL)
             continue;
         if(player == 1)
             resultSucc = 2;
         else
             resultSucc = 1;
         
-        structure1 = minMaxAB(index->children[i],depth+1,resultSucc,-passThresh,-useThresh);
+        structure1 = minMaxAB(index->stones[i],depth+1,resultSucc,-passThresh,-useThresh);
         newValue = -structure1;
         
         if(newValue > passThresh)
@@ -241,9 +252,9 @@ int alphabeta(Tree *node, int depth, int player, int alpha, int beta)
         int bestVal = -100,value;
         for(int i=0;i < 6 ; i++ )
         {
-            if(node->children[i]== NULL)
+            if(node->stones[i]== NULL)
                 continue;
-            value = alphabeta(node->children[i], depth+1, node->player, alpha, beta);
+            value = alphabeta(node->stones[i], depth+1, node->player, alpha, beta);
             bestVal = ( bestVal > value) ? bestVal : value;
             alpha = ( alpha > bestVal) ? alpha : bestVal;
             if (beta <= alpha)
@@ -257,9 +268,9 @@ int alphabeta(Tree *node, int depth, int player, int alpha, int beta)
         int bestVal = +100,value;
         for(int i=7; i < 14 ; i++ )
         {
-            if(node->children[i]== NULL)
+            if(node->stones[i]== NULL)
                 continue;
-            value = alphabeta(node->children[i], depth+1, node->player, alpha, beta);
+            value = alphabeta(node->stones[i], depth+1, node->player, alpha, beta);
             bestVal = ( bestVal < value) ? bestVal : value;
             beta = ( beta < bestVal) ? beta : bestVal;
             if (beta < alpha)
@@ -270,7 +281,32 @@ int alphabeta(Tree *node, int depth, int player, int alpha, int beta)
     }
 }
 
+void Tree::copyBoardStatus(Board kb)
+{
+    for(int i=0;i<6;i++)
+    {
+        this->bx.A[i]=kb.A[i];
+        this->bx.B[i]=kb.B[i];
+    }
+    this->bx.player1=kb.player1;
+    this->bx.player2=kb.player2;
+}
 
+
+int Tree::getHole()
+{
+    for(int i=0;i<6;i++)
+    {
+        if(stones[i] == NULL)
+            continue;
+        if(stones[i]->value == value)
+        {
+            cout<<"hole #"<<i;
+            return i;
+        }
+    }
+    return -1;
+}
 //if same player's move
 //select best move from 6 children
 //update tree

@@ -32,7 +32,8 @@ public:
     int getChildIndex(int parentIndex, int childNumber);
     int getParentIndex(int childIndex);
     void buildTree();
-    int minMaxAB(int index, int depth, int player, int useThresh, int passThresh);
+    //int minMaxAB(int index, int depth, int player, int useThresh, int passThresh);
+    int minMaxAB(Tree *index, int depth, int player, int useThresh, int passThresh);
     void setValue(int );
     bool IsitDeep(int );
     int evaluation();

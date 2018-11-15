@@ -20,6 +20,7 @@ public:
     void drawRoot();
     Tree *stones[14];
     Board bx;
+    void grab_all_stones();
 
     int getHole();
 

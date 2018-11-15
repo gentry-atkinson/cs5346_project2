@@ -3,6 +3,7 @@
 #include <math.h>
 
 using namespace std;
+int expand_nodes, generate_nodes;
 
 Tree::Tree()
 {
@@ -196,31 +197,70 @@ void Tree::setValue(int value)
     value = value;
 }
 
+
+void Tree :: grab_all_stones()
+{
+
+    int p = (player==1)?2:1;
+    for(int i=0;i<6;i++)
+    {
+        stone++;
+        stones[i]=new Tree(p);
+        if(this->bx.A[i]!=0 && player == 1)
+
+            stones[i]->bx = this->bx;
+
+        else if(this->bx.B[i]!=0 && player == 2)
+
+            stones[i]->bx = this->bx;
+
+        else
+
+            stones[i] = NULL;
+
+        if(stones[i]!=NULL)
+
+        {
+
+            generate_nodes++;
+
+            stones[i]->bx.move(i,stones[i]->player);
+
+        }
+
+
+    }
+
+}
+
+
 bool Tree::IsitDeep(int depth)
 {
     if(value != -1000)
         return value;
     //if the depth is greater than 3 or a player has won the game then it is deep enough.
-    if(depth >= 3 || bx.isFinished())
+    if(depth >= 3 || bx.isFinished()!='N')
     {
         return true;
     }
     else
     {
+        expand_nodes++;
+        grab_all_stones();
         return false;
     }
 }
 
 int Tree::evaluation()
 {
-    int p1stones=0, p2stones=0;
-    int value = 0;
+    int value;
+    //int p1stones=0, p2stones=0;
     if(player == 1)
     {
         int p1stones = 0;
         for(int i = 0 ; i < 6 ; i++)
         {
-            if(bx.holes[i] == 0)
+            if(bx.A[i] == 0)
                 p1stones++;
         }
         if(p1stones == 6)
@@ -229,9 +269,9 @@ int Tree::evaluation()
     else if(player == 2)
     {
         int p2stones = 0;
-        for(int i = 7 ; i < 14 ; i++)
+        for(int i = 0 ; i < 6 ; i++)
         {
-            if(bx.holes[i] == 0)
+            if(bx.B[i] == 0)
                 p2stones++;
         }
         if(p2stones == 6)

@@ -9,6 +9,7 @@ public:
     int player1,player2;
     int A[6],B[6];
     Board(const Board& toCopy);
+    Board(Board *);
     ~Board();
     void draw();
     int move(int hole, int player);

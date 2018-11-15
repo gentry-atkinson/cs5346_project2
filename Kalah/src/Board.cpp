@@ -20,6 +20,20 @@ Board::~Board()
 {
 }
 
+Board :: Board( Board *b)
+{
+
+    for(int i=0;i<6;i++)
+    {
+
+        this->A[i]=b->A[i];
+        this->B[i]=b->B[i];
+    }
+    this->player1=b->player1;
+    this->player2=b->player2;
+
+}
+
 void Board::draw(){
     //line 1
     cout << "P2 : ";

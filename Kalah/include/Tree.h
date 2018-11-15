@@ -20,12 +20,12 @@ public:
     void drawRoot();
     Tree *stones[14];
     Board bx;
-    void copyBoardStatus(Board kb);
+
     int getHole();
-    
-    
+
+
     //private:
-    
+
     int depth;
     int player;
     int valueAlgorithm;
@@ -41,8 +41,9 @@ public:
     bool IsitDeep(int );
     int evaluation();
     int alphabeta(Tree *node, int depth, int player, int alpha, int beta);
-    
-    
+    void copyBoardStatus(Board b);
+
+
 };
 
 #endif // TREE_H

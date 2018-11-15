@@ -17,7 +17,7 @@ Tree::Tree()
         stones[i] = NULL;
     }
     boards = new Board[totalBoards];
-    
+
     buildTree();
 }
 
@@ -67,7 +67,7 @@ void Tree::drawRoot(){
 void Tree::buildTree(){
     //cout << "Building tree for Player " << player << endl;
     int child;
-    
+
     for (int i = 0; i < depth; i++){
         for (int j = 1; j <= 6; j++){
             child = 6*i+j;
@@ -77,7 +77,7 @@ void Tree::buildTree(){
         }
     }
     cout << "Tree done." << endl;
-    
+
     switch(searchAlgorithm){
         case 1:
             minMaxAB(0, 0, player, 100, -120);
@@ -89,7 +89,7 @@ void Tree::buildTree(){
             cerr << "Bad value for search algorithm in buildTree" << endl;
             break;
     }
-    
+
     return;
 }
 
@@ -99,7 +99,7 @@ int Tree::minMaxAB(Tree *index, int depth, int player, int useThresh, int passTh
     int newValue;
     int resultSucc;
     int structure;
-    
+
     if(index->IsitDeep(depth))
     {
         structure = index->evaluation();
@@ -111,7 +111,7 @@ int Tree::minMaxAB(Tree *index, int depth, int player, int useThresh, int passTh
         return structure;
     }
     int structure1=0;
-    
+
     for(int i = 0 ; i < 14; i++)
     {
         if(index->stones[i] == NULL)
@@ -120,10 +120,10 @@ int Tree::minMaxAB(Tree *index, int depth, int player, int useThresh, int passTh
             resultSucc = 2;
         else
             resultSucc = 1;
-        
+
         structure1 = minMaxAB(index->stones[i],depth+1,resultSucc,-passThresh,-useThresh);
         newValue = -structure1;
-        
+
         if(newValue > passThresh)
         {
             index->setValue(i);
@@ -242,55 +242,45 @@ int Tree::evaluation()
 }
 
 
-int alphabeta(Tree *node, int depth, int player, int alpha, int beta)
-{
-    //Initial Condition -> node is a leaf node
-    if(node->IsitDeep(depth))
-        return node->evaluation() ;
-    if (player == 1 )
-    {
-        int bestVal = -100,value;
-        for(int i=0;i < 6 ; i++ )
-        {
-            if(node->stones[i]== NULL)
-                continue;
-            value = alphabeta(node->stones[i], depth+1, node->player, alpha, beta);
-            bestVal = ( bestVal > value) ? bestVal : value;
-            alpha = ( alpha > bestVal) ? alpha : bestVal;
-            if (beta <= alpha)
-                break;
-        }
-        node->setValue(bestVal);
-        return bestVal;
-    }
-    else
-    {
-        int bestVal = +100,value;
-        for(int i=7; i < 14 ; i++ )
-        {
-            if(node->stones[i]== NULL)
-                continue;
-            value = alphabeta(node->stones[i], depth+1, node->player, alpha, beta);
-            bestVal = ( bestVal < value) ? bestVal : value;
-            beta = ( beta < bestVal) ? beta : bestVal;
-            if (beta < alpha)
-                break;
-        }
-        node->setValue(bestVal);
-        return bestVal;
-    }
-}
+//int alphabeta(Tree *node, int depth, int player, int alpha, int beta)
+//{
+//    //Initial Condition -> node is a leaf node
+//    if(node->IsitDeep(depth))
+//        return node->evaluation() ;
+//    if (player == 1 )
+//    {
+//        int bestVal = -100,value;
+//        for(int i=0;i < 6 ; i++ )
+//        {
+//            if(node->stones[i]== NULL)
+//                continue;
+//            value = alphabeta(node->stones[i], depth+1, node->player, alpha, beta);
+//            bestVal = ( bestVal > value) ? bestVal : value;
+//            alpha = ( alpha > bestVal) ? alpha : bestVal;
+//            if (beta <= alpha)
+//                break;
+//        }
+//        node->setValue(bestVal);
+//        return bestVal;
+//    }
+//    else
+//    {
+//        int bestVal = +100,value;
+//        for(int i=7; i < 14 ; i++ )
+//        {
+//            if(node->stones[i]== NULL)
+//                continue;
+//            value = alphabeta(node->stones[i], depth+1, node->player, alpha, beta);
+//            bestVal = ( bestVal < value) ? bestVal : value;
+//            beta = ( beta < bestVal) ? beta : bestVal;
+//            if (beta < alpha)
+//                break;
+//        }
+//        node->setValue(bestVal);
+//        return bestVal;
+//    }
+//}
 
-void Tree::copyBoardStatus(Board kb)
-{
-    for(int i=0;i<6;i++)
-    {
-        this->bx.A[i]=kb.A[i];
-        this->bx.B[i]=kb.B[i];
-    }
-    this->bx.player1=kb.player1;
-    this->bx.player2=kb.player2;
-}
 
 
 int Tree::getHole()
@@ -320,18 +310,18 @@ int Tree::play(int lastMove, bool& finished, int& player){
     cout << "Player " << player << " is moving." << endl;
     int bestMove = 1;
     if (player == 2)  bestMove = 8;
-    
+
     int i = 1, bound = 7;
     if (player == 2){
         i = 7;
         bound = 14;
     }
-    
+
     if (lastMove != 99){
         boards[0].move(lastMove, player);
         buildTree();
     }
-    
+
     if (player == this->player){
         for (; i < bound; i++){
             cout << i << " ";
@@ -352,4 +342,17 @@ int Tree::play(int lastMove, bool& finished, int& player){
     else {
         return 99;
     }
+}
+
+
+
+void Tree::copyBoardStatus(Board b)
+{
+    for(int i=0;i<6;i++)
+    {
+        this->bx.A[i]=b.A[i];
+        this->bx.B[i]=b.B[i];
+    }
+    this->bx.player1=b.player1;
+    this->bx.player2=b.player2;
 }

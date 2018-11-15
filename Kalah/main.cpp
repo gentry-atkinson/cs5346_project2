@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "Board.h"
 #include "Tree.h"
+#include "alphabeta.h"
 
 using namespace std;
 
@@ -44,29 +45,32 @@ using namespace std;
 //    }
 //    playerOneTree.drawRoot();
 
+
+
+
 int main()
 {
     int count=0;
-    Tree T;
-    Board *kb = new Board();
+    //Tree T;
+    Board *b = new Board();
     cout << "Initial board " << endl;
-    kb->draw();
-    char win = kb->isFinished();
+    b->draw();
+    char win = b->isFinished();
     char player = 'A';
     //int start_s = clock();
     while(win == 'N')
     {
         count++;
         Tree *head = new Tree(player);
-        head->copyBoardStatus(*kb);
+        head->copyBoardStatus(b);
         cout << "Player" << player <<" Turn :"<< endl;
-        T.alphabeta(head,0,1,1000,-1000);
+        alphabeta(head,0,1,1000,-1000);
         int hole = head->getHole();
-        player = kb->move(hole,player);
-        kb->draw();
-        win = kb->isFinished();
+        player = b->move(hole,player);
+        b->draw();
+        win = b->isFinished();
     }
-    kb->draw();
+    b->draw();
     return 0;
 }
 //    return 0;

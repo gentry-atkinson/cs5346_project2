@@ -60,7 +60,7 @@ int main()
         Tree *head = new Tree(player);
         head->copyBoardStatus(*kb);
         cout << "Player" << player <<" Turn :"<< endl;
-        T.alphabeta(head,0,player,1000,-1000);
+        T.alphabeta(head,0,1,1000,-1000);
         int hole = head->getHole();
         player = kb->move(hole,player);
         kb->draw();

@@ -111,16 +111,16 @@ void UserVsUser()
     while(win == 'N')
     {
         steps++;
-        cout << "*****Turn*****" << player << endl;
+        cout << "Player :" << player << endl;
         if(player == 'A')
         {
             int hole;
-            cout << "Enter the P1 hole number :" << endl;
+            cout << "Enter the P1 or player A hole number you wish to move  :" << endl;
             cin >> hole;
             while(!b->isLegal(player, hole))
             {
-                cout<<"Illegal move, choose another hole"<<endl;
-                cout << "Enter the P1 hole number :" << endl;
+                cout<<"Illegal move, choose another hole to move"<<endl;
+                cout << "Enter the P1 or player A hole number you wish to move  :" << endl;
                 cin >> hole;
             }
             player = b->move(hole,player);
@@ -128,12 +128,12 @@ void UserVsUser()
         else if(player == 'B')
         {
             int hole;
-            cout << "Enter the P2 hole number :" << endl;
+            cout << "Enter the P2 or player B hole number you wish to move  :" << endl;
             cin >> hole;
             while(!b->isLegal(player, hole))
             {
                 cout<<"Illegal move, choose another hole"<<endl;
-                cout << "Enter the P2 hole number :" << endl;
+                cout << "Enter the P2 or player B hole number you wish to move  :" << endl;
                 cin >> hole;
             }
             player = b->move(hole,player);

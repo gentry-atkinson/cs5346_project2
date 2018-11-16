@@ -1,5 +1,6 @@
 #include "Board.h"
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -66,114 +67,77 @@ Board :: Board( Board *b)
     
 }
 
-void Board::draw(){
-    //line 1
-    cout << "P2 : ";
-    for(int i=(2*6); i>6; i--)
+
+void Board::draw()
+{
+    cout << endl;
+    cout << "\t\t\t   P1 or PLAYER A";
+    cout << endl;
+    cout << "Hole no: |";
+    for(int i = 5 ; i >= 0 ; i--)
     {
-        if (i < 10) {
-            cout <<i<<" |";
-        } else {
-            cout <<i<<"|";
-        }
+        cout << i << setw(2) << "|";
+        cout << " ";
     }
     cout<<endl;
-    
-    
-    //line 2
-    cout << " ----";
-    for(int i=6; i>0; i--)
+    cout << "\t\t";
+    for(int i = 0 ; i < 25; i++)
     {
-        cout << "---";
-    }
-    cout << "---" <<  endl;
-    
-    
-    //line 3
-    cout << " |  |";
-    for(int i=13; i>7; i--)
-    {
-        cout << holes[i];
-        if (holes[i]<10)
-        {
-            cout << " |";
-        }
-        else
-        {
-            cout << "|";
-        }
-    }
-    cout << "  |" << endl;
-    
-    
-    //line 4
-    cout << " |" << holes[0];
-    if (holes[2*6+1] < 10)
-    {
-        cout << " |";
-    } else {
-        cout << "|";
-    }
-    for(int i=6; i>1; i--)
-    {
-        cout << "--+";
-    }
-    cout << "--|" << holes[7];
-    if (holes[7]<10)
-    {
-        cout << " |";
-    }
-    else
-    {
-        cout << "|";
+        cout << "-";
     }
     cout << endl;
+    cout << "\t\t" << "|";
+    cout << setw(2);
     
-    
-    //line 5
-    cout << " |  |";
-    for(int i=1; i<7; i++)
+    for(int i = 5 ; i >= 0 ; i--)
     {
-        cout << holes[i];
-        if (holes[i]<10)
-        {
-            cout << " |";
-        }
-        else
-        {
-            cout << "|";
-        }
+        cout << A[i] << setw(2) << "|";
+        cout << " ";
     }
-    cout << "  |" << endl;
-    
-    
-    //line 6
-    cout << " ----";
-    for(int i=6; i>0; i--)
+    cout<<endl;
+    cout << "\t\t";
+    for(int i = 0 ; i < 25; i++)
     {
-        cout << "---";
+        cout << "-";
     }
-    cout << "---" << endl;
-    
-    
-    //line 7
-    cout << "P1 : ";
-    for(int i=0; i<6; i++)
+    cout << endl;
+    cout << endl;
+    cout <<"|" << setw(2) << player1 << setw(2)<<"|";
+    cout <<"\t\t\t\t\t\t\t\t  |" << setw(2) << player2 <<setw(2)<< "|";
+    cout << endl;
+    cout << "\t\t";
+    for(int i = 0 ; i < 25; i++)
     {
-        if (i < 10)
-        {
-            cout <<i<<" |";
-        }
-        else
-        {
-            cout <<i<<"|";
-        }
-    } cout<<endl;
+        cout << "-";
+    }
     
+    cout << endl;
+    cout << "\t\t" << "|";
+    cout << setw(2);
     
-    return;
+    for(int i = 0 ; i < 6; i++)
+    {
+        cout << B[i] << setw(2) << "|";
+        cout << " ";
+    }
+    
+    cout<<endl;
+    cout << "\t\t";
+    for(int i = 0 ; i < 25; i++)
+    {
+        cout << "-";
+    }
+    cout << endl;
+    cout << "Hole no: |";
+    for(int i = 0 ; i < 6; i++)
+    {
+        cout << i << setw(2) << "|";
+        cout << " ";
+    }
+    cout << endl;
+    cout << "\t\t\t   P2 or PLAYER B";
+    cout << endl << endl << endl << endl;
 }
-
 
 
 //int Board::move(int hole, int player){

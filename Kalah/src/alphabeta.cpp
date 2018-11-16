@@ -1,13 +1,11 @@
-//#include "alphabeta.h"
-
-
 #include<iostream>
 #include "Tree.h"
+
 using namespace std;
+
 int alphabeta(Tree *node, int depth, char player, int alpha, int beta)
 {
-    //Initial Condition -> node is a leaf node
-    if(node->IsitDeep(depth))
+    if(node->IsitDeep(depth)) //node is a leaf node)
         return node->evaluation() ;
     if (player == 'A' )
     {

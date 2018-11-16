@@ -59,9 +59,9 @@ void Tree::create_node(char p)
 }
 
 
-void Tree::set_value(int value)
+void Tree::set_value(int v)
 {
-    value = value;
+    value = v;
 }
 
 
@@ -236,16 +236,16 @@ void Tree::print(Tree *n,int nestLevel)
 void Tree :: grab_all_stones()
 {
     
-    int p = (player==1)?2:1;
+    char p = (player=='A')?'B':'A';
     for(int i=0;i<6;i++)
     {
         stone++;
         stones[i]=new Tree(p);
-        if(this->bx.A[i]!=0 && player == 1)
+        if(this->bx.A[i]!=0 && player == 'A')
             
             stones[i]->bx = this->bx;
         
-        else if(this->bx.B[i]!=0 && player == 2)
+        else if(this->bx.B[i]!=0 && player == 'B')
             
             stones[i]->bx = this->bx;
         
@@ -269,12 +269,12 @@ void Tree :: grab_all_stones()
 }
 
 
-bool Tree::IsitDeep(int depth)
+bool Tree::IsitDeep(int d)
 {
     if(value != -1000)
         return value;
     //if the depth is greater than 3 or a player has won the game then it is deep enough.
-    if(depth >= 3 || bx.isFinished()!='N')
+    if(d >= 3 || bx.isFinished()!='N')
     {
         return true;
     }
@@ -288,7 +288,7 @@ bool Tree::IsitDeep(int depth)
 
 int Tree::evaluation()
 {
-    int value;
+    int x;
     //int p1stones=0, p2stones=0;
     if(player == 'A')
     {
@@ -300,7 +300,7 @@ int Tree::evaluation()
         }
         if(p1stones == 6)
         {
-            value = 1000;
+            x = 1000;
         }
     }
     else if(player == 'B')
@@ -312,10 +312,10 @@ int Tree::evaluation()
                 p2stones++;
         }
         if(p2stones == 6)
-            value = -1000;
+            x = -1000;
     }
-    set_value(value);
-    return value;
+    set_value(x);
+    return x;
 }
 
 

@@ -74,6 +74,7 @@ void AlphaBeta()
         win = b->isFinished();
     }
     b->draw();
+    cout<<"Player :" <<player<<" WINS!!!"<<endl;
 }
 
 void MinMaxAB()
@@ -97,6 +98,7 @@ void MinMaxAB()
         win = b->isFinished();
     }
     b->draw();
+    cout<<"Player :" <<player<<" WINS!!!"<<endl;
 }
 
 
@@ -142,6 +144,7 @@ void UserVsUser()
         win = b->isFinished();
     }
     b->draw();
+    cout<<"Player :" <<player<<" WINS!!!"<<endl;
     
 }
 

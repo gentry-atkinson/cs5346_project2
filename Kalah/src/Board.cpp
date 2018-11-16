@@ -606,10 +606,12 @@ char Board::isFinished()
     }
     if(player1 > 36)//P1 wins
     {
+        //cout<<"Player 1 WINS!!!"<<endl;
         return 'A';   // P1 wins
     }
     else if(player2 > 36)//P2 Wins
     {
+        //cout<<"Player 2 WINS!!!"<<endl;
         return 'B';  // P2 wins
     }
     else if(p1 == 6 || p2 == 6)

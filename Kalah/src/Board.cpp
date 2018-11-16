@@ -5,6 +5,17 @@ using namespace std;
 
 Board::Board()
 {
+    
+    for(int i = 0 ; i < 6; i++)
+    {
+        A[i] = 6;
+        B[i] = 6;
+    }
+    
+    numberOfSlots = 5;
+    player1 = 0,player2 = 0;
+    ptr = NULL;
+    
     //value = 0;
     finished = false;
 }
@@ -12,8 +23,29 @@ Board::Board()
 Board::Board(const Board& toCopy){
     for (int i = 0; i < 14; i++)
         holes[i] = toCopy.holes[i];
-//    value = toCopy.value;
+    //    value = toCopy.value;
     finished = toCopy.finished;
+}
+
+
+Board::Board(int p1[],int p2[],int a, int b)
+{
+    //    for(int i=0;i<6;i++)
+    //    {
+    //        A[i]=p1[i];
+    //        B[i]=p2[i];
+    //    }
+    //    player1 = a;
+    //    player2 = b;
+    
+    
+    for(int i=0;i<6;i++)
+    {
+        A[i]=p1[i];
+        B[i]=p2[i];
+    }
+    player1 = a;
+    player2 = b;
 }
 
 Board::~Board()
@@ -22,16 +54,16 @@ Board::~Board()
 
 Board :: Board( Board *b)
 {
-
+    
     for(int i=0;i<6;i++)
     {
-
+        
         this->A[i]=b->A[i];
         this->B[i]=b->B[i];
     }
     this->player1=b->player1;
     this->player2=b->player2;
-
+    
 }
 
 void Board::draw(){
@@ -46,8 +78,8 @@ void Board::draw(){
         }
     }
     cout<<endl;
-
-
+    
+    
     //line 2
     cout << " ----";
     for(int i=6; i>0; i--)
@@ -55,8 +87,8 @@ void Board::draw(){
         cout << "---";
     }
     cout << "---" <<  endl;
-
-
+    
+    
     //line 3
     cout << " |  |";
     for(int i=13; i>7; i--)
@@ -72,8 +104,8 @@ void Board::draw(){
         }
     }
     cout << "  |" << endl;
-
-
+    
+    
     //line 4
     cout << " |" << holes[0];
     if (holes[2*6+1] < 10)
@@ -96,8 +128,8 @@ void Board::draw(){
         cout << "|";
     }
     cout << endl;
-
-
+    
+    
     //line 5
     cout << " |  |";
     for(int i=1; i<7; i++)
@@ -113,8 +145,8 @@ void Board::draw(){
         }
     }
     cout << "  |" << endl;
-
-
+    
+    
     //line 6
     cout << " ----";
     for(int i=6; i>0; i--)
@@ -122,10 +154,10 @@ void Board::draw(){
         cout << "---";
     }
     cout << "---" << endl;
-
-
+    
+    
     //line 7
-    cout << "P2 : ";
+    cout << "P1 : ";
     for(int i=0; i<6; i++)
     {
         if (i < 10)
@@ -137,8 +169,8 @@ void Board::draw(){
             cout <<i<<"|";
         }
     } cout<<endl;
-
-
+    
+    
     return;
 }
 
@@ -197,15 +229,15 @@ void Board::draw(){
 
 
 
-//Function to move for the A player
-int Board::move_p1(int hole)
+//Function to move for the P1 or A player
+char Board::move_p1(int hole)
 {
     int tempPos = hole;
     ptr = A;
     int numberOfStones = ptr[tempPos];
     ptr[tempPos] = 0;
     int opponentPos, opponentStones;
-
+    
     tempPos++;
     while(numberOfStones > 0)
     {
@@ -222,13 +254,13 @@ int Board::move_p1(int hole)
                     ptr[opponentPos] = 0;
                     player1 += opponentStones + 1;
                     if(numberOfStones == 0)
-                        return 2;
+                        return 'B';
                 }
                 else
                 {
                     ptr[tempPos] += 1;
                     if(numberOfStones == 0)
-                        return 2;
+                        return 'B';
                 }
             }
             else if(numberOfStones > 1)
@@ -242,7 +274,7 @@ int Board::move_p1(int hole)
             numberOfStones--;
             player1 += 1;
             if(numberOfStones == 0)
-                return 1;
+                return 'A';
         }
         else if(tempPos > 6 && tempPos <= 12)
         {
@@ -250,7 +282,7 @@ int Board::move_p1(int hole)
             numberOfStones--;
             ptr[tempPos-7] += 1;
             if(numberOfStones == 0)
-                return 2;
+                return 'B';
         }
         else if(tempPos >= 12)
         {
@@ -259,18 +291,18 @@ int Board::move_p1(int hole)
         }
         tempPos++;
     }
-    return 2;
+    return 'B';
 }
 
-//Function to move for the B player
-int Board::move_p2(int hole)
+//Function to move for the P2 or B player
+char Board::move_p2(int hole)
 {
     int tempPos = hole;
     ptr = B;
     int numberOfStones = ptr[tempPos];
     ptr[hole] = 0;
     int opponentPos, opponentStones;
-
+    
     tempPos++;
     while(numberOfStones > 0)
     {
@@ -287,13 +319,13 @@ int Board::move_p2(int hole)
                     ptr[opponentPos] = 0;
                     player2 += opponentStones + 1;
                     if(numberOfStones == 0)
-                        return 1;
+                        return 'A';
                 }
                 else
                 {
                     ptr[tempPos] += 1;
                     if(numberOfStones == 0)
-                        return 1;
+                        return 'A';
                 }
             }
             else if(numberOfStones > 1)
@@ -307,7 +339,7 @@ int Board::move_p2(int hole)
             numberOfStones--;
             player2 += 1;
             if(numberOfStones == 0)
-                return 2;
+                return 'B';
         }
         else if(tempPos > 6 && tempPos <= 12)
         {
@@ -315,7 +347,7 @@ int Board::move_p2(int hole)
             numberOfStones--;
             ptr[tempPos-7] += 1;
             if(numberOfStones == 0)
-                return 1;
+                return 'A';
         }
         else if(tempPos >= 12)
         {
@@ -324,15 +356,15 @@ int Board::move_p2(int hole)
         }
         tempPos++;
     }
-    return 1;
+    return 'A';
 }
 
 
 
-int Board::move(int hole,int player)
+char Board::move(int hole,char player)
 {
-    int v;
-    if(player == 1)
+    char v;
+    if(player == 'A')
         v = move_p1(hole);
     else
         v = move_p2(hole);
@@ -348,35 +380,35 @@ int Board::move(int hole,int player)
 
 
 
-void Board::setValue(int algorithm, int player){
-    switch (algorithm) {
-        case 1:
-//            value = gentryValue(player);
-            break;
-        case 2:
- //           value = vishalValue(player);
-            break;
-    }
-}
+//void Board::setValue(int algorithm, int player){
+//    switch (algorithm) {
+//        case 1:
+////            value = gentryValue(player);
+//            break;
+//        case 2:
+// //           value = vishalValue(player);
+//            break;
+//    }
+//}
 
 
-void Board::setValue(int newValue){
-        value = newValue;
-}
-
-int Board::getValue() {return value;}
+//void Board::setValue(int newValue){
+//        value = newValue;
+//}
+//
+//int Board::getValue() {return value;}
 
 int Board::gentryValue(int player){
     //Player 1 = bottom player
     //Player 2 = top player
-
+    
     //Tuning Parameters
     int emptyRightScaling = 1;
     int emptyCupScaling = 1;
     int scoreScaling = 5;
     int moveAgainCupsScaling = 2;
     int moreStonesScaling = 1;
-
+    
     int value = 0, sum1 = 0, sum2 = 0;
     switch (player) {
         case 1:
@@ -432,17 +464,17 @@ int Board::gentryValue(int player){
 }
 
 int Board::vishalValue(int player){
-
+    
     int store1[5];
     int counter=0;
     int score=0;
     int GrabFromEmpty = 200;
     int MakeAscending = 100;
     int search =0;
-
+    
     //So if i find an empty pit in my end and see how many stones are present in the opposite end,
     // grab all the stones in the next move;
-
+    
     for(int i=1;i<7;i++)
     {
         if(holes[i]==0)
@@ -454,11 +486,11 @@ int Board::vishalValue(int player){
     cout<<"---------"<<endl;
     for(int i=0;i<counter;i++)
     {
-
+        
         cout<<store1[i]<<" "; // found empty pits in my end;
     }
     cout<<endl<<"---------"<<endl;
-
+    
     // int oppvalue=0;
     int high =8;
     for(int i=13; i>7 ; i--)
@@ -468,7 +500,7 @@ int Board::vishalValue(int player){
     }
     cout<<endl<<"Highest value in the opp end"<<endl<<high<<endl;
     int size = sizeof(store1)/store1[0];
-
+    
     switch (player) {
         case 1:
             for(int i=0;i<size;i++)
@@ -524,36 +556,51 @@ int Board::vishalValue(int player){
                     return score;
                 }
                 //Will have to cover the other player's holes as well!
-
+                
             }
             break;
-
+            
         default:
             break;
     }
-
-
-
-
+    
+    
+    
+    
     //check for the opp end ascending order and try to attack!
-
+    
     return score;
-
-
+    
+    
 }
 
-bool Board::isLegal(int moveNumber, int player){
-    //players cannot play other player's cups
-    if (player == 1 && moveNumber > 6) return false;
-    if (player == 2 && moveNumber < 8) return false;
-    //neither player can move kalahs
-    if (moveNumber == 0 || moveNumber == 7) return false;
-    //player cannot move an empty hole
-    if (holes[moveNumber] == 0) return false;
-    //move is legal
+//bool Board::isLegal(int moveNumber, int player){
+//    //players cannot play other player's cups
+//    if (player == 1 && moveNumber > 6) return false;
+//    if (player == 2 && moveNumber < 8) return false;
+//    //neither player can move kalahs
+//    if (moveNumber == 0 || moveNumber == 7) return false;
+//    //player cannot move an empty hole
+//    if (holes[moveNumber] == 0) return false;
+//    //move is legal
+//    return true;
+//}
+
+
+bool Board::isLegal(char player,int hole)
+{
+    if(hole >5 || hole < 0)
+        return false;
+    if(player == 'A' && A[hole] == 0)
+    {
+        return false;
+    }
+    else  if(player == 'B' && B[hole] == 0)
+    {
+        return false;
+    }
     return true;
 }
-
 //bool Board::isFinished(){
 //    return finished;
 //}
@@ -571,9 +618,9 @@ char Board::isFinished()
         {
             p2++;
         }
-        player1 += A[i];
-        player2 += B[i];
-
+        p1Stones += A[i];
+        p2Stones += B[i];
+        
     }
     if(p1 == 6)
     {
@@ -619,12 +666,26 @@ int Board::getScore2(){
     return holes[0];
 }
 
-Board& Board::operator= (const Board& other){
-    if (this == &other) return *this;
-    for (int i = 0; i < 14; i++)
-        holes[i]= other.holes[i];
-   value = other.value;
-    finished = other.finished;
-    return *this;
-}
+//Board& Board::operator= (const Board& other){
+//    if (this == &other) return *this;
+//    for (int i = 0; i < 14; i++)
+//        holes[i]= other.holes[i];
+//   value = other.value;
+//    finished = other.finished;
+//    return *this;
+//}
 
+
+void Board::operator=(Board b)
+{
+    for(int i=0;i<6;i++)
+    {
+        A[i]=b.A[i];
+        B[i]=b.B[i];
+        
+    }
+    numberOfSlots = 5;
+    player1=b.player1;
+    player2=b.player2;
+    ptr = NULL;
+}

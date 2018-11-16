@@ -51,13 +51,13 @@ int steps;
 
 void AlphaBeta()
 {
-     int steps=0;
+    // int steps=0;
     //Tree T;
     Board *b = new Board();
     cout << "Initial board using AB :" << endl;
     b->draw();
     char win = b->isFinished();
-    int player = 1;
+    char player = 'A';
 
     cout<<"Did i reach here ? "<<endl;
     //int start_s = clock();
@@ -81,8 +81,8 @@ void MinMaxAB()
     Board *b = new Board();
     cout << "Initial board using MinimaxAB :" << endl;
     b->draw();
-    int win = b->isFinished();
-    int player = 1;
+    char win = b->isFinished();
+    char player = 'A';
     while(win == 'N')
     {
         steps++;
@@ -97,8 +97,54 @@ void MinMaxAB()
         win = b->isFinished();
     }
     b->draw();
-
 }
+
+
+void UserVsUser()
+{
+    Board *b = new Board();
+    cout << "Initial board " << endl;
+    b->draw();
+    char win = b->isFinished();
+    char player = 'A';
+    
+    while(win == 'N')
+    {
+        steps++;
+        cout << "*****Turn*****" << player << endl;
+        if(player == 'A')
+        {
+            int hole;
+            cout << "Enter the P1 hole number :" << endl;
+            cin >> hole;
+            while(!b->isLegal(player, hole))
+            {
+                cout<<"Illegal move, choose another hole"<<endl;
+                cout << "Enter the P1 hole number :" << endl;
+                cin >> hole;
+            }
+            player = b->move(hole,player);
+        }
+        else if(player == 'B')
+        {
+            int hole;
+            cout << "Enter the P2 hole number :" << endl;
+            cin >> hole;
+            while(!b->isLegal(player, hole))
+            {
+                cout<<"Illegal move, choose another hole"<<endl;
+                cout << "Enter the P2 hole number :" << endl;
+                cin >> hole;
+            }
+            player = b->move(hole,player);
+        }
+        b->draw();
+        win = b->isFinished();
+    }
+    b->draw();
+    
+}
+
 
 int main()
 {
@@ -116,6 +162,10 @@ int main()
     case 2:
         MinMaxAB();
         break;
+    case 3:
+        UserVsUser();
+        break;
+            
     default:
         cout<<"Please enter a valid choice : "<<endl;
     }

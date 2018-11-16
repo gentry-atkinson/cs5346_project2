@@ -12,24 +12,32 @@ class Tree
 {
 public:
     int value,stone;
-    Tree();
-    Tree(int);
-    Tree(int value, int search, int depth, int player);
-    ~Tree();
-    int play(int lastMove, bool& finished, int& player);
-    void drawRoot();
-    Tree *stones[14];
+    char player;
     Board bx;
-    void grab_all_stones();
-
-    int getHole();
+    Tree *stones[6];
+    
+    Tree();
+    Tree(char);
+    
+    // Tree(int value, int search, int depth, int player);
+    // ~Tree();
+    // int play(int lastMove, bool& finished, int& player);
+    //void drawRoot();
+    
+    void create_node(char);
+    void set_value(int);
+    void grab_all_stones();//add all children
+    bool IsitDeep(int );
     void print(Tree *,int );
-
-
+    int evaluation();
+    int getHole();
+    void copyBoardStatus(Board b);
+    
+    
     //private:
-
+    
     int depth;
-    int player;
+    
     int valueAlgorithm;
     int searchAlgorithm;
     Board * boards;
@@ -38,14 +46,14 @@ public:
     int getParentIndex(int childIndex);
     void buildTree();
     //int minMaxAB(int index, int depth, int player, int useThresh, int passThresh);
-    int minMaxAB(Tree *index, int depth, int player, int useThresh, int passThresh);
-    void setValue(int );
-    bool IsitDeep(int );
-    int evaluation();
-    int alphabeta(Tree *node, int depth, int player, int alpha, int beta);
-    void copyBoardStatus(Board b);
-
-
+    //int minMaxAB(Tree *index, int depth, int player, int useThresh, int passThresh);
+    //void setValue(int );
+    
+    
+    //int alphabeta(Tree *node, int depth, int player, int alpha, int beta);
+    
+    
+    
 };
 
 #endif // TREE_H

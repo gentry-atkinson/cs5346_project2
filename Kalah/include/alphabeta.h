@@ -6,6 +6,6 @@
 
 using namespace std;
 
-int alphabeta(Tree *,int, int ,int ,int);
+int alphabeta(Tree *,int, char ,int ,int);
 
 #endif // ALPHABETA_H

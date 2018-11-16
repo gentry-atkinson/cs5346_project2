@@ -2,39 +2,39 @@
 #include "minmaxAB.h"
 using namespace std;
 
-int minMaxAB(Tree *index, int depth, int player, int useThresh, int passThresh) {
+int minMaxAB(Tree *index, int depth, char player, int useThresh, int passThresh) {
     cout << "MinMax called for depth " << depth << endl;
     int newValue;
-    int resultSucc;
+    char resultSucc;
     int structure;
-
+    
     if(index->IsitDeep(depth))
     {
         structure = index->evaluation();
-        if(player==2)
+        if(player=='B')
         {
             structure=-structure;
         }
-        index->setValue(structure);
+        index->set_value(structure);
         return structure;
     }
     int structure1=0;
-
-    for(int i = 0 ; i < 14; i++)
+    
+    for(int i = 0 ; i < 6; i++)
     {
         if(index->stones[i] == NULL)
             continue;
-        if(player == 1)
-            resultSucc = 2;
+        if(player == 'A')
+            resultSucc = 'B';
         else
-            resultSucc = 1;
-
+            resultSucc = 'A';
+        
         structure1 = minMaxAB(index->stones[i],depth+1,resultSucc,-passThresh,-useThresh);
         newValue = -structure1;
-
+        
         if(newValue > passThresh)
         {
-            index->setValue(i);
+            index->set_value(i);
             passThresh = newValue;
         }
         if(passThresh >= useThresh)

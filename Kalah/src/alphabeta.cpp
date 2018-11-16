@@ -4,12 +4,12 @@
 #include<iostream>
 #include "Tree.h"
 using namespace std;
-int alphabeta(Tree *node, int depth, int player, int alpha, int beta)
+int alphabeta(Tree *node, int depth, char player, int alpha, int beta)
 {
     //Initial Condition -> node is a leaf node
     if(node->IsitDeep(depth))
         return node->evaluation() ;
-    if (player == 1 )
+    if (player == 'A' )
     {
         int bestVal = -100,value;
         for(int i=0;i < 6 ; i++ )
@@ -22,7 +22,7 @@ int alphabeta(Tree *node, int depth, int player, int alpha, int beta)
             if (beta <= alpha)
                 break;
         }
-        node->setValue(bestVal);
+        node->set_value(bestVal);
         return bestVal;
     }
     else
@@ -38,7 +38,7 @@ int alphabeta(Tree *node, int depth, int player, int alpha, int beta)
             if (beta < alpha)
                 break;
         }
-        node->setValue(bestVal);
+        node->set_value(bestVal);
         return bestVal;
     }
 }

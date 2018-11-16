@@ -5,6 +5,6 @@
 #include <Tree.h>
 using namespace std;
 
-int minMaxAB(Tree *,int,int,int,int);
+int minMaxAB(Tree *,int,char,int,int);
 
 #endif // MINMAXAB_H

@@ -7,22 +7,23 @@ int expand_nodes, generate_nodes;
 
 Tree::Tree()
 {
-    depth = 3;
-    player = 1;
-    valueAlgorithm = 1;
+    //depth = 3;
+    player = 'n';
+    //valueAlgorithm = 1;
     value=-1000;
-    searchAlgorithm = 1;
-    totalBoards = 259;
+    stone=0;
+    //searchAlgorithm = 1;
+    //totalBoards = 259;
     for(int i=0;i<6;i++)
     {
         stones[i] = NULL;
     }
-    boards = new Board[totalBoards];
-
-    buildTree();
+    //boards = new Board[totalBoards];
+    
+    //buildTree();
 }
 
-Tree::Tree(int p)
+Tree::Tree(char p)
 {
     player = p;
     value = -1000;
@@ -33,24 +34,38 @@ Tree::Tree(int p)
     }
 }
 
-Tree::~Tree()
+//Tree::~Tree()
+//{
+//    //cout << "Deleting tree for player " << player << endl;
+//    delete[] boards;
+//}
+//
+//Tree::Tree(int value, int search, int depth, int player){
+//    this->depth = depth;
+//    valueAlgorithm = value;
+//    searchAlgorithm = search;
+//    this->player = player;
+//    totalBoards = 1;
+//    for (int i = 1; i <= depth; i++)
+//        totalBoards += pow(6, i);
+//    boards = new Board[totalBoards];
+//    //cout << "Player " << player << " has " << totalBoards << " boards in tree." << endl;
+//    buildTree();
+//}
+
+void Tree::create_node(char p)
 {
-    //cout << "Deleting tree for player " << player << endl;
-    delete[] boards;
+    stones[stone++]=new Tree(p);
 }
 
-Tree::Tree(int value, int search, int depth, int player){
-    this->depth = depth;
-    valueAlgorithm = value;
-    searchAlgorithm = search;
-    this->player = player;
-    totalBoards = 1;
-    for (int i = 1; i <= depth; i++)
-        totalBoards += pow(6, i);
-    boards = new Board[totalBoards];
-    //cout << "Player " << player << " has " << totalBoards << " boards in tree." << endl;
-    buildTree();
+
+void Tree::set_value(int value)
+{
+    value = value;
 }
+
+
+
 
 int Tree::getChildIndex(int parentIndex, int childNumber){
     return (6*parentIndex + childNumber);
@@ -60,15 +75,15 @@ int Tree::getParentIndex(int childIndex){
     return ((childIndex-1)/6);
 }
 
-void Tree::drawRoot(){
-    boards[0].draw();
-}
+//void Tree::drawRoot(){
+//    boards[0].draw();
+//}
 
 //An illegal move creates a child with the same value as the parent.
 void Tree::buildTree(){
     //cout << "Building tree for Player " << player << endl;
     int child;
-
+    
     for (int i = 0; i < depth; i++){
         for (int j = 1; j <= 6; j++){
             child = 6*i+j;
@@ -78,10 +93,10 @@ void Tree::buildTree(){
         }
     }
     cout << "Tree done." << endl;
-
+    
     switch(searchAlgorithm){
         case 1:
-           // minMaxAB(0, 0, player, 100, -120);
+            // minMaxAB(0, 0, player, 100, -120);
             break;
         case 2:
             void aBSearch();
@@ -90,7 +105,7 @@ void Tree::buildTree(){
             cerr << "Bad value for search algorithm in buildTree" << endl;
             break;
     }
-
+    
     return;
 }
 
@@ -192,65 +207,65 @@ void Tree::buildTree(){
 
 
 
-void Tree::setValue(int value)
-{
-    value = value;
-}
+//void Tree::setValue(int value)
+//{
+//    value = value;
+//}
 
 void Tree::print(Tree *n,int nestLevel)
 
 {
-
+    
     cout<<n->player<<":"<<n->value<<endl;
-
+    
     int i, j;
-
+    
     for (i = 0; n->stones[i] != NULL && i < 6; i++)
-
+        
     {
-
+        
         for (j = 0; j < nestLevel; j++)
-
+            
             cout<<"\t";
-
+        
         print(n->stones[i], nestLevel + 1);
-
+        
     }
-
+    
 }
 void Tree :: grab_all_stones()
 {
-
+    
     int p = (player==1)?2:1;
     for(int i=0;i<6;i++)
     {
         stone++;
         stones[i]=new Tree(p);
         if(this->bx.A[i]!=0 && player == 1)
-
+            
             stones[i]->bx = this->bx;
-
+        
         else if(this->bx.B[i]!=0 && player == 2)
-
+            
             stones[i]->bx = this->bx;
-
+        
         else
-
+            
             stones[i] = NULL;
-
+        
         if(stones[i]!=NULL)
-
+            
         {
-
+            
             generate_nodes++;
-
+            
             stones[i]->bx.move(i,stones[i]->player);
-
+            
         }
-
-
+        
+        
     }
-
+    
 }
 
 
@@ -275,7 +290,7 @@ int Tree::evaluation()
 {
     int value;
     //int p1stones=0, p2stones=0;
-    if(player == 1)
+    if(player == 'A')
     {
         int p1stones = 0;
         for(int i = 0 ; i < 6 ; i++)
@@ -284,9 +299,11 @@ int Tree::evaluation()
                 p1stones++;
         }
         if(p1stones == 6)
+        {
             value = 1000;
+        }
     }
-    else if(player == 2)
+    else if(player == 'B')
     {
         int p2stones = 0;
         for(int i = 0 ; i < 6 ; i++)
@@ -297,7 +314,7 @@ int Tree::evaluation()
         if(p2stones == 6)
             value = -1000;
     }
-    setValue(value);
+    set_value(value);
     return value;
 }
 
@@ -366,43 +383,43 @@ int Tree::getHole()
 //if opposite player
 //update tree
 //TODO: players are making illegal moves and always making the same move.
-int Tree::play(int lastMove, bool& finished, int& player){
-    cout << "Player " << player << " is moving." << endl;
-    int bestMove = 1;
-    if (player == 2)  bestMove = 8;
-
-    int i = 1, bound = 7;
-    if (player == 2){
-        i = 7;
-        bound = 14;
-    }
-
-    if (lastMove != 99){
-        boards[0].move(lastMove, player);
-        buildTree();
-    }
-
-    if (player == this->player){
-        for (; i < bound; i++){
-            cout << i << " ";
-            if (boards[i].isLegal(i, player))
-                if (boards[i].getValue() > boards[bestMove].getValue())
-                    bestMove = i;
-        }
-        cout << "Player " << " selects hole " << bestMove << endl;
-        player = boards[0].move(bestMove, player);
-        buildTree();
-        finished = boards[0].isFinished();
-        cout << "Player " << player << " moves hole " << bestMove << endl;
-        if (player == this-> player)
-            return 99;
-        else
-            return bestMove;
-    }
-    else {
-        return 99;
-    }
-}
+//int Tree::play(int lastMove, bool& finished, int& player){
+//    cout << "Player " << player << " is moving." << endl;
+//    int bestMove = 1;
+//    if (player == 2)  bestMove = 8;
+//
+//    int i = 1, bound = 7;
+//    if (player == 2){
+//        i = 7;
+//        bound = 14;
+//    }
+//
+//    if (lastMove != 99){
+//        boards[0].move(lastMove, player);
+//        buildTree();
+//    }
+//
+//    if (player == this->player){
+//        for (; i < bound; i++){
+//            cout << i << " ";
+//            if (boards[i].isLegal(i, player))
+//                if (boards[i].getValue() > boards[bestMove].getValue())
+//                    bestMove = i;
+//        }
+//        cout << "Player " << " selects hole " << bestMove << endl;
+//        player = boards[0].move(bestMove, player);
+//        buildTree();
+//        finished = boards[0].isFinished();
+//        cout << "Player " << player << " moves hole " << bestMove << endl;
+//        if (player == this-> player)
+//            return 99;
+//        else
+//            return bestMove;
+//    }
+//    else {
+//        return 99;
+//    }
+//}
 
 
 

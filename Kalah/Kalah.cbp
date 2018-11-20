@@ -42,9 +42,13 @@
 		</Compiler>
 		<Unit filename="include/Board.h" />
 		<Unit filename="include/Tree.h" />
+		<Unit filename="include/alphabeta.h" />
+		<Unit filename="include/minmaxAB.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Board.cpp" />
 		<Unit filename="src/Tree.cpp" />
+		<Unit filename="src/alphabeta.cpp" />
+		<Unit filename="src/minmaxAB.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

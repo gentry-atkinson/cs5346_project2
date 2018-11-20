@@ -6,17 +6,17 @@ using namespace std;
 
 Board::Board()
 {
-    
+
     for(int i = 0 ; i < 6; i++)
     {
         A[i] = 6;
         B[i] = 6;
     }
-    
+
     numberOfSlots = 5;
     player1 = 0,player2 = 0;
     ptr = NULL;
-    
+
     //value = 0;
     finished = false;
 }
@@ -38,8 +38,8 @@ Board::Board(int p1[],int p2[],int a, int b)
     //    }
     //    player1 = a;
     //    player2 = b;
-    
-    
+
+
     for(int i=0;i<6;i++)
     {
         A[i]=p1[i];
@@ -55,25 +55,25 @@ Board::~Board()
 
 Board :: Board( Board *b)
 {
-    
+
     for(int i=0;i<6;i++)
     {
-        
+
         this->A[i]=b->A[i];
         this->B[i]=b->B[i];
     }
     this->player1=b->player1;
     this->player2=b->player2;
-    
+
 }
 
 
 void Board::draw()
 {
     cout << endl;
-    cout << "\t\t\t   P1 or PLAYER A";
+    cout << "\t\t     P1 or PLAYER A";
     cout << endl;
-    cout << "Hole no: |";
+    cout << "Hole no: \t |";
     for(int i = 5 ; i >= 0 ; i--)
     {
         cout << i << setw(2) << "|";
@@ -88,7 +88,7 @@ void Board::draw()
     cout << endl;
     cout << "\t\t" << "|";
     cout << setw(2);
-    
+
     for(int i = 5 ; i >= 0 ; i--)
     {
         cout << A[i] << setw(2) << "|";
@@ -103,24 +103,24 @@ void Board::draw()
     cout << endl;
     cout << endl;
     cout <<"|" << setw(2) << player1 << setw(2)<<"|";
-    cout <<"\t\t\t\t\t\t\t\t  |" << setw(2) << player2 <<setw(2)<< "|";
+    cout <<"\t\t\t\t\t\t  |" << setw(2) << player2 <<setw(2)<< "|";
     cout << endl;
     cout << "\t\t";
     for(int i = 0 ; i < 25; i++)
     {
         cout << "-";
     }
-    
+
     cout << endl;
     cout << "\t\t" << "|";
     cout << setw(2);
-    
+
     for(int i = 0 ; i < 6; i++)
     {
         cout << B[i] << setw(2) << "|";
         cout << " ";
     }
-    
+
     cout<<endl;
     cout << "\t\t";
     for(int i = 0 ; i < 25; i++)
@@ -128,14 +128,14 @@ void Board::draw()
         cout << "-";
     }
     cout << endl;
-    cout << "Hole no: |";
+    cout << "Hole no: \t |";
     for(int i = 0 ; i < 6; i++)
     {
         cout << i << setw(2) << "|";
         cout << " ";
     }
     cout << endl;
-    cout << "\t\t\t   P2 or PLAYER B";
+    cout << "\t\t     P2 or PLAYER B";
     cout << endl << endl << endl << endl;
 }
 
@@ -201,7 +201,7 @@ char Board::move_p1(int hole)
     int numberOfStones = ptr[tempPos];
     ptr[tempPos] = 0;
     int opponentPos, opponentStones;
-    
+
     tempPos++;
     while(numberOfStones > 0)
     {
@@ -266,7 +266,7 @@ char Board::move_p2(int hole)
     int numberOfStones = ptr[tempPos];
     ptr[hole] = 0;
     int opponentPos, opponentStones;
-    
+
     tempPos++;
     while(numberOfStones > 0)
     {
@@ -365,14 +365,14 @@ char Board::move(int hole,char player)
 int Board::gentryValue(int player){
     //Player 1 = bottom player
     //Player 2 = top player
-    
+
     //Tuning Parameters
     int emptyRightScaling = 1;
     int emptyCupScaling = 1;
     int scoreScaling = 5;
     int moveAgainCupsScaling = 2;
     int moreStonesScaling = 1;
-    
+
     int value = 0, sum1 = 0, sum2 = 0;
     switch (player) {
         case 1:
@@ -428,17 +428,17 @@ int Board::gentryValue(int player){
 }
 
 int Board::vishalValue(int player){
-    
+
     int store1[5];
     int counter=0;
     int score=0;
     int GrabFromEmpty = 200;
     int MakeAscending = 100;
     int search =0;
-    
+
     //So if i find an empty pit in my end and see how many stones are present in the opposite end,
     // grab all the stones in the next move;
-    
+
     for(int i=1;i<7;i++)
     {
         if(holes[i]==0)
@@ -450,11 +450,11 @@ int Board::vishalValue(int player){
     cout<<"---------"<<endl;
     for(int i=0;i<counter;i++)
     {
-        
+
         cout<<store1[i]<<" "; // found empty pits in my end;
     }
     cout<<endl<<"---------"<<endl;
-    
+
     // int oppvalue=0;
     int high =8;
     for(int i=13; i>7 ; i--)
@@ -464,7 +464,7 @@ int Board::vishalValue(int player){
     }
     cout<<endl<<"Highest value in the opp end"<<endl<<high<<endl;
     int size = sizeof(store1)/store1[0];
-    
+
     switch (player) {
         case 1:
             for(int i=0;i<size;i++)
@@ -520,22 +520,22 @@ int Board::vishalValue(int player){
                     return score;
                 }
                 //Will have to cover the other player's holes as well!
-                
+
             }
             break;
-            
+
         default:
             break;
     }
-    
-    
-    
-    
+
+
+
+
     //check for the opp end ascending order and try to attack!
-    
+
     return score;
-    
-    
+
+
 }
 
 //bool Board::isLegal(int moveNumber, int player){
@@ -584,7 +584,7 @@ char Board::isFinished()
         }
         p1Stones += A[i];
         p2Stones += B[i];
-        
+
     }
     if(p1 == 6)
     {
@@ -648,7 +648,7 @@ void Board::operator=(Board b)
     {
         A[i]=b.A[i];
         B[i]=b.B[i];
-        
+
     }
     numberOfSlots = 5;
     player1=b.player1;

@@ -51,16 +51,12 @@ int steps;
 
 void AlphaBeta()
 {
-    // int steps=0;
-    //Tree T;
     Board *b = new Board();
     cout << "Initial board using AB :" << endl;
     b->draw();
     char win = b->isFinished();
     char player = 'A';
-
     cout<<"Did i reach here ? "<<endl;
-    //int start_s = clock();
     while(win == 'N')
     {
         steps++;
@@ -74,7 +70,7 @@ void AlphaBeta()
         win = b->isFinished();
     }
     b->draw();
-    cout<<"Player :" <<player<<" WINS!!!"<<endl;
+    cout<<"Player :" <<win<<" WINS!!!"<<endl;
 }
 
 void MinMaxAB()
@@ -98,8 +94,43 @@ void MinMaxAB()
         win = b->isFinished();
     }
     b->draw();
-    cout<<"Player :" <<player<<" WINS!!!"<<endl;
+    cout<<"Player :" <<win<<" WINS!!!"<<endl;
 }
+
+void minmaxABVsalphabeta()
+{
+    Board *b = new Board();
+    cout << "Initial board " << endl;
+    b->draw();
+    char win = b->isFinished();
+    char player = 'A';
+    while(win == 'N')
+    {
+        steps++;
+        Tree *head = new Tree(player);
+        head->copyBoardStatus(b);
+        cout << "Player : " << player << endl;
+        if(player == 'A')
+        {
+            minMaxAB(head,0,player,1000,-1000);
+            int hole = head->value;
+            cout<< "hole # "<<hole<<endl;
+            player = b->move(hole,player);
+        }
+        else if(player == 'B')
+        {
+            alphabeta(head,0,player,1000,-1000);
+            int hole = head->getHole();
+            player = b->move(hole,player);
+        }
+        b->draw();
+        win = b->isFinished();
+    }
+
+     b->draw();
+     cout<<"Player :" <<win<<" WINS!!!"<<endl;
+}
+
 
 
 void UserVsUser()
@@ -109,7 +140,7 @@ void UserVsUser()
     b->draw();
     char win = b->isFinished();
     char player = 'A';
-    
+
     while(win == 'N')
     {
         steps++;
@@ -144,9 +175,11 @@ void UserVsUser()
         win = b->isFinished();
     }
     b->draw();
-    cout<<"Player :" <<player<<" WINS!!!"<<endl;
-    
+    cout<<"Player :" <<win<<" WINS!!!"<<endl;
+
 }
+
+
 
 
 int main()
@@ -166,9 +199,12 @@ int main()
         MinMaxAB();
         break;
     case 3:
+        minmaxABVsalphabeta();
+        break;
+    case 4:
         UserVsUser();
         break;
-            
+
     default:
         cout<<"Please enter a valid choice : "<<endl;
     }

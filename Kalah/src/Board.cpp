@@ -22,9 +22,13 @@ Board::Board()
 }
 
 Board::Board(const Board& toCopy){
-    for (int i = 0; i < 14; i++)
-        holes[i] = toCopy.holes[i];
-    //    value = toCopy.value;
+    for (int i = 0; i < 14; i++){
+        //holes[i] = toCopy.holes[i];
+        playerAHoles[i] = toCopy.playerAHoles[i];
+        playerBHoles[i] = toCopy.playerBHoles[i];
+    }
+
+    value = toCopy.value;
     finished = toCopy.finished;
 }
 
@@ -361,7 +365,7 @@ int Board::gentryValue(int player){
     //Tuning Parameters
     int emptyRightScaling = 1;
     int emptyCupScaling = 1;
-    int scoreScaling = 5;
+    int scoreScaling = 3;
     int moveAgainCupsScaling = 2;
     int moreStonesScaling = 1;
 
@@ -636,6 +640,8 @@ int Board::getScore2(){
 
 Board& Board::operator=(const Board& b)
 {
+    if (this == &b) return *this;
+
     for(int i=0;i<6;i++)
     {
         playerAHoles[i]=b.playerAHoles[i];
@@ -646,6 +652,8 @@ Board& Board::operator=(const Board& b)
     playerAScore=b.playerAScore;
     playerBScore=b.playerBScore;
     playerPtr = NULL;
+
+    return *this;
 }
 
 int Board::getAHoles(int i){

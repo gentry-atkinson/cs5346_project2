@@ -34,7 +34,7 @@ public:
 
 
 private:
-    int holes[14]= {0, 6, 6, 6, 6, 6, 6, 0, 6, 6, 6, 6, 6, 6};
+    //int holes[14]= {0, 6, 6, 6, 6, 6, 6, 0, 6, 6, 6, 6, 6, 6};
     int value;
     bool finished;
     int playerAHoles[6],playerBHoles[6];

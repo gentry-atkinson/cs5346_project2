@@ -19,7 +19,7 @@ Tree::Tree()
         stones[i] = NULL;
     }
     //boards = new Board[totalBoards];
-    
+
     //buildTree();
 }
 
@@ -83,7 +83,7 @@ int Tree::getParentIndex(int childIndex){
 void Tree::buildTree(){
     //cout << "Building tree for Player " << player << endl;
     int child;
-    
+
     for (int i = 0; i < depth; i++){
         for (int j = 1; j <= 6; j++){
             child = 6*i+j;
@@ -93,7 +93,7 @@ void Tree::buildTree(){
         }
     }
     cout << "Tree done." << endl;
-    
+
     switch(searchAlgorithm){
         case 1:
             // minMaxAB(0, 0, player, 100, -120);
@@ -105,7 +105,7 @@ void Tree::buildTree(){
             cerr << "Bad value for search algorithm in buildTree" << endl;
             break;
     }
-    
+
     return;
 }
 
@@ -215,57 +215,57 @@ void Tree::buildTree(){
 void Tree::print(Tree *n,int nestLevel)
 
 {
-    
+
     cout<<n->player<<":"<<n->value<<endl;
-    
+
     int i, j;
-    
+
     for (i = 0; n->stones[i] != NULL && i < 6; i++)
-        
+
     {
-        
+
         for (j = 0; j < nestLevel; j++)
-            
+
             cout<<"\t";
-        
+
         print(n->stones[i], nestLevel + 1);
-        
+
     }
-    
+
 }
 void Tree :: grab_all_stones()
 {
-    
+
     char p = (player=='A')?'B':'A';
     for(int i=0;i<6;i++)
     {
         stone++;
         stones[i]=new Tree(p);
-        if(this->bx.A[i]!=0 && player == 'A')
-            
+        if(this->bx.playerAHoles[i]!=0 && player == 'A')
+
             stones[i]->bx = this->bx;
-        
-        else if(this->bx.B[i]!=0 && player == 'B')
-            
+
+        else if(this->bx.playerBHoles[i]!=0 && player == 'B')
+
             stones[i]->bx = this->bx;
-        
+
         else
-            
+
             stones[i] = NULL;
-        
+
         if(stones[i]!=NULL)
-            
+
         {
-            
+
             generate_nodes++;
-            
+
             stones[i]->bx.move(i,stones[i]->player);
-            
+
         }
-        
-        
+
+
     }
-    
+
 }
 
 
@@ -295,7 +295,7 @@ int Tree::evaluation()
         int p1stones = 0;
         for(int i = 0 ; i < 6 ; i++)
         {
-            if(bx.A[i] == 0)
+            if(bx.playerAHoles[i] == 0)
                 p1stones++;
         }
         if(p1stones == 6)
@@ -308,7 +308,7 @@ int Tree::evaluation()
         int p2stones = 0;
         for(int i = 0 ; i < 6 ; i++)
         {
-            if(bx.B[i] == 0)
+            if(bx.playerBHoles[i] == 0)
                 p2stones++;
         }
         if(p2stones == 6)
@@ -427,9 +427,9 @@ void Tree::copyBoardStatus(Board b)
 {
     for(int i=0;i<6;i++)
     {
-        this->bx.A[i]=b.A[i];
-        this->bx.B[i]=b.B[i];
+        this->bx.playerAHoles[i]=b.playerAHoles[i];
+        this->bx.playerBHoles[i]=b.playerBHoles[i];
     }
-    this->bx.player1=b.player1;
-    this->bx.player2=b.player2;
+    this->bx.playerAScore=b.playerAScore;
+    this->bx.playerBScore=b.playerBScore;
 }

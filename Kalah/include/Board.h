@@ -17,6 +17,8 @@ public:
     char move(int hole, char player);
     char  isFinished();
     void draw();
+    int getAHoles(int i);
+    int getBHoles(int i);
 
 
 
@@ -31,7 +33,7 @@ public:
     Board& operator= (const Board& other);
 
 
-//private:
+private:
     int holes[14]= {0, 6, 6, 6, 6, 6, 6, 0, 6, 6, 6, 6, 6, 6};
     int value;
     bool finished;

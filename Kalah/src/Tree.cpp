@@ -241,11 +241,11 @@ void Tree :: grab_all_stones()
     {
         stone++;
         stones[i]=new Tree(p);
-        if(this->bx.playerAHoles[i]!=0 && player == 'A')
+        if(this->bx.getAHoles(i)!=0 && player == 'A')
 
             stones[i]->bx = this->bx;
 
-        else if(this->bx.playerBHoles[i]!=0 && player == 'B')
+        else if(this->bx.getBHoles(i)!=0 && player == 'B')
 
             stones[i]->bx = this->bx;
 
@@ -295,7 +295,7 @@ int Tree::evaluation()
         int p1stones = 0;
         for(int i = 0 ; i < 6 ; i++)
         {
-            if(bx.playerAHoles[i] == 0)
+            if(bx.getAHoles(i) == 0)
                 p1stones++;
         }
         if(p1stones == 6)
@@ -308,7 +308,7 @@ int Tree::evaluation()
         int p2stones = 0;
         for(int i = 0 ; i < 6 ; i++)
         {
-            if(bx.playerBHoles[i] == 0)
+            if(bx.getBHoles(i) == 0)
                 p2stones++;
         }
         if(p2stones == 6)
@@ -425,11 +425,12 @@ int Tree::getHole()
 
 void Tree::copyBoardStatus(Board b)
 {
-    for(int i=0;i<6;i++)
-    {
-        this->bx.playerAHoles[i]=b.playerAHoles[i];
-        this->bx.playerBHoles[i]=b.playerBHoles[i];
-    }
-    this->bx.playerAScore=b.playerAScore;
-    this->bx.playerBScore=b.playerBScore;
+//    for(int i=0;i<6;i++)
+//    {
+//        this->bx.getAHoles(i)=b.getAHoles(i);
+//        this->bx.getBHoles(i)=b.getBHoles(i);
+//    }
+//    this->bx.playerAScore=b.playerAScore;
+//    this->bx.playerBScore=b.playerBScore;
+    bx = b;
 }

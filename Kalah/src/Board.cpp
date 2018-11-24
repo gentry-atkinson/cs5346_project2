@@ -647,3 +647,11 @@ Board& Board::operator=(const Board& b)
     playerBScore=b.playerBScore;
     playerPtr = NULL;
 }
+
+int Board::getAHoles(int i){
+    return playerAHoles[i];
+}
+
+int Board::getBHoles(int i){
+    return playerBHoles[i];
+}

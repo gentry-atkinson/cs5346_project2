@@ -25,6 +25,7 @@ Tree::Tree(int searchAlg, int valueAlg, int maxDepth, char player){
     totalBoards = 0;
     for (int i = 0; i <= maxDepth; i++)
         totalBoards += pow(NUM_HOLES, i);
+    cout << "Total boards in new tree: " << totalBoards << endl;
 
     boards = new Board[totalBoards];
     buildTree();
@@ -169,16 +170,18 @@ int Tree::alphabeta(int currentNode, int depth, char player, int alpha, int beta
     if (depth == maxDepth)
         return boards[currentNode].getValue();
 
-    if (player == 'A' )
+    if (player == this->player )
     {
         int bestVal = -100,value;
-        for(int i=0;i < 6 ; i++ )
+        for(int i=0;i < NUM_HOLES ; i++ )
         {
             value = alphabeta(getChild(currentNode, i), depth+1, player, alpha, beta);
             bestVal = ( bestVal > value) ? bestVal : value;
             alpha = ( alpha > bestVal) ? alpha : bestVal;
-            if (beta <= alpha)
+            if (beta <= alpha){
+                cout << "Beta is less than alpha" << endl;
                 break;
+            }
         }
         //node->set_value(bestVal);
         boards[currentNode].setValue(bestVal);
@@ -203,7 +206,7 @@ int Tree::alphabeta(int currentNode, int depth, char player, int alpha, int beta
 
 int Tree::chooseBestMove(){
     int bestMove;
-    int bestVal = -9999;
+    int bestVal = -999999;
     for (int i = 1; i <= NUM_HOLES; i++){
         if (!boards[0].isLegal(player, i-1))
             continue;
@@ -211,18 +214,32 @@ int Tree::chooseBestMove(){
             bestMove = i;
             bestVal = boards[i].getValue();
         }
-        //cout << "Best move: " << boards[bestMove].getValue() << endl;
+        cout << "Best move: " << bestVal << endl;
     }
 
-    //cout << "My best move is " << bestMove-1 << endl;
-    return bestMove-1;
+    bestMove -= 1;
+    cout << "My best move is " << bestMove << endl;
+
+    //final check that bestMove is a legal move
+    //if (!boards[0].isLegal(player, bestMove))
+    //    return 0;
+    return bestMove;
 }
 
 void Tree::play(char& currentPlayer, char& lastPlayer, int& lastMove){
-    //cout << "Current player is " << currentPlayer << endl;
-    //cout << "Last player is " << lastPlayer << endl;
+    cout << "Current player is " << currentPlayer << endl;
+    cout << "Last player is " << lastPlayer << endl;
+
+    //Check for bad input
+    if (lastMove < 0 || lastMove >= NUM_HOLES){
+        cerr << "Bad value for lastMove in play" << endl;
+    }
+    if (currentPlayer != 'A' && currentPlayer != 'B'){
+        cerr << "Bad currentPlayer value in play" << endl;
+    }
+
     //Case 1: first move for A
-    if (currentPlayer == 'A' && lastPlayer == FIRST_MOVE){
+    if (lastPlayer == FIRST_MOVE){
         //cout << "First move" << endl;
         lastPlayer = currentPlayer;
         lastMove = chooseBestMove();

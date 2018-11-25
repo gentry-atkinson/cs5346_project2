@@ -326,7 +326,7 @@ char Board::makeMove(char player, int hole){
 
     if (!isLegal(player, hole)){
         cerr << "Illegal move attempted in makeMove" << endl;
-        value = -9999;
+        //value = -999;
         return player;
     }
 
@@ -419,8 +419,8 @@ char Board::makeMove(char player, int hole){
     //Case 3:Empty hole for A
     else if (player == 'A' && oldPlayer == 'A' && playerAHoles[hole] == 0){
         //Add the stone of opposite cup to A's kalah
-        playerAScore += playerBHoles[NUM_HOLES - hole];
-        playerBHoles[NUM_HOLES - hole] = 0;
+        playerAScore += playerBHoles[NUM_HOLES - hole - 1];
+        playerBHoles[NUM_HOLES - hole - 1] = 0;
         //Add the final stone to A's kalh
         playerAScore++;
         //Switch player
@@ -429,8 +429,8 @@ char Board::makeMove(char player, int hole){
     //Case 4: Empty hole for B
     else if (player == 'B' && oldPlayer == 'B' && playerBHoles[hole] == 0){
         //Add the stone of opposite cup to B's kalah
-        playerBScore += playerAHoles[NUM_HOLES - hole];
-        playerAHoles[NUM_HOLES - hole] = 0;
+        playerBScore += playerAHoles[NUM_HOLES - hole - 1];
+        playerAHoles[NUM_HOLES - hole - 1] = 0;
         //Add the final stone to A's kalh
         playerBScore++;
         //Switch player

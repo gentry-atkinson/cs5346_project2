@@ -24,6 +24,8 @@ int main()
         tree1->play(currentPlayer, lastPlayer, lastMove);
         tree2->play(currentPlayer, lastPlayer, lastMove);
         turn++;
+        tree1->draw();
+        tree2->draw();
         getchar();
     }
 
@@ -44,6 +46,19 @@ int main()
 
     delete tree1;
     delete tree2;
+    //Case 2: Vishal vs. Gentry with AlphaBeta at depth 3
+    //Case 3: MinMax vs. AlphaBeta with Vishal at depth 3
+    //Case 4: MinMax vs. AlphaBeta with Gentry at depth 3
+
+    //Case 5: Vishal vs. Gentry with MinMaxAB at depth 4
+    //Case 6: Vishal vs. Gentry with AlphaBeta at depth 4
+    //Case 7: MinMax vs. AlphaBeta with Vishal at depth 4
+    //Case 8: MinMax vs. AlphaBeta with Gentry at depth 4
+
+    //Case 9: Vishal vs. Gentry with MinMaxAB at depth 6
+    //Case 10: Vishal vs. Gentry with AlphaBeta at depth 6
+    //Case 11: MinMax vs. AlphaBeta with Vishal at depth 6
+    //Case 12: MinMax vs. AlphaBeta with Gentry at depth 6
 
     return 0;
 }

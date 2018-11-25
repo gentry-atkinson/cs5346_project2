@@ -36,10 +36,11 @@ Tree::~Tree(){
 int Tree::getTier(int boardNumber){
     int tier = 0;
     int total = 1;
-    while (boardNumber > total){
+    while (boardNumber >= total){
         tier++;
         total += pow(NUM_HOLES, tier);
     }
+    cout << "Child " << boardNumber << " is on tier " << tier << endl;
     return tier;
 }
 
@@ -62,8 +63,10 @@ void Tree::buildTree(){
             if (boards[currentNode].isLegal(player, i)){
                 boards[currentNode].makeMove(player, i);
             }
-            if (currentDepth == maxDepth)
+            if (currentDepth == maxDepth){
                 boards[currentNode].setValue(player, valueAlg);
+                cout << "Leaf node: " << boards[currentNode].getValue() << endl;
+            }
             else
                 boards[currentNode].setValue(-9999);
             currentNode++;
@@ -193,8 +196,10 @@ int Tree::chooseBestMove(){
             continue;
         if (boards[i].getValue() > boards[bestMove].getValue())
             bestMove = i;
+        cout << "Best move: " << boards[bestMove].getValue() << endl;
     }
 
+    cout << "My best move is " << bestMove << endl;
     return bestMove;
 }
 
@@ -203,12 +208,14 @@ void Tree::play(char& currentPlayer, char& lastPlayer, int& lastMove){
     cout << "Last player is " << lastPlayer << endl;
     //Case 1: first move for A
     if (currentPlayer == 'A' && lastPlayer == FIRST_MOVE){
+        cout << "First move" << endl;
         lastPlayer = currentPlayer;
         lastMove = chooseBestMove();
         currentPlayer = boards[0].makeMove(player, lastMove);
     }
     //Case 2: update board then choose move then update board
     else if (currentPlayer == player && lastPlayer != currentPlayer){
+        cout << player << "'s move and " << lastPlayer << " went last time." << endl;
         boards[0].makeMove(lastPlayer, lastMove);
         buildTree();
         lastPlayer = currentPlayer;
@@ -218,6 +225,7 @@ void Tree::play(char& currentPlayer, char& lastPlayer, int& lastMove){
     }
     //Case 3: choose move then update board
     else if (currentPlayer == player && lastPlayer == currentPlayer){
+        cout << player << "'s move and I'm going again" << endl;
         lastPlayer = currentPlayer;
         lastMove = chooseBestMove();
         currentPlayer = boards[0].makeMove(player, lastMove);
@@ -225,6 +233,7 @@ void Tree::play(char& currentPlayer, char& lastPlayer, int& lastMove){
     }
     //Case 4: update board without choosing move
     else if (currentPlayer != player){
+        cout << "I just need to update" << endl;
         boards[0].makeMove(lastPlayer, lastMove);
         buildTree();
     }

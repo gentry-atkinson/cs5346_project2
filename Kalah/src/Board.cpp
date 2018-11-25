@@ -14,7 +14,7 @@ Board::Board(){
     playerAScore = 0;
     playerBScore = 0;
 
-    value = 0;
+    value = -9999;
     finished = false;
 }
 
@@ -295,6 +295,11 @@ bool Board::isLegal(char player, int hole){
         return false;
     }
 
+    if (player != 'A' && player != 'B'){
+        cerr << "Bad player value passed to isLegal" << endl;
+        return false;
+    }
+
     //hole must be in range
     if (hole < 0 || hole >= NUM_HOLES){
         cerr << hole << " hole value outside of range in isLegal" << endl;
@@ -310,7 +315,6 @@ bool Board::isLegal(char player, int hole){
         return false;
         cerr << hole << " hole is empty in isLegal" << endl;
     }
-
     return true;
 }
 
@@ -321,7 +325,7 @@ char Board::makeMove(char player, int hole){
     char oldPlayer = player;
 
     if (!isLegal(player, hole)){
-        cerr << "Illgal move attempted in makeMove" << endl;
+        cerr << "Illegal move attempted in makeMove" << endl;
         return 'C';
     }
 

@@ -325,7 +325,7 @@ char Board::makeMove(char player, int hole){
     char oldPlayer = player;
 
     if (!isLegal(player, hole)){
-        cerr << "Illegal move attempted in makeMove" << endl;
+        //cerr << "Illegal move attempted in makeMove" << endl;
         //value = -999;
         return player;
     }

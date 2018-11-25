@@ -25,7 +25,7 @@ Tree::Tree(int searchAlg, int valueAlg, int maxDepth, char player){
     totalBoards = 0;
     for (int i = 0; i <= maxDepth; i++)
         totalBoards += pow(NUM_HOLES, i);
-    cout << "Total boards in new tree: " << totalBoards << endl;
+    //cout << "Total boards in new tree: " << totalBoards << endl;
 
     boards = new Board[totalBoards];
     buildTree();
@@ -179,7 +179,7 @@ int Tree::alphabeta(int currentNode, int depth, char player, int alpha, int beta
             bestVal = ( bestVal > value) ? bestVal : value;
             alpha = ( alpha > bestVal) ? alpha : bestVal;
             if (beta <= alpha){
-                cout << "Beta is less than alpha" << endl;
+                //cout << "Beta is less than alpha" << endl;
                 break;
             }
         }
@@ -214,11 +214,11 @@ int Tree::chooseBestMove(){
             bestMove = i;
             bestVal = boards[i].getValue();
         }
-        cout << "Best move: " << bestVal << endl;
+        //cout << "Best move: " << bestVal << endl;
     }
 
     bestMove -= 1;
-    cout << "My best move is " << bestMove << endl;
+    //cout << "My best move is " << bestMove << endl;
 
     //final check that bestMove is a legal move
     //if (!boards[0].isLegal(player, bestMove))
@@ -227,8 +227,8 @@ int Tree::chooseBestMove(){
 }
 
 void Tree::play(char& currentPlayer, char& lastPlayer, int& lastMove){
-    cout << "Current player is " << currentPlayer << endl;
-    cout << "Last player is " << lastPlayer << endl;
+    //cout << "Current player is " << currentPlayer << endl;
+    //cout << "Last player is " << lastPlayer << endl;
 
     //Check for bad input
     if (lastMove < 0 || lastMove >= NUM_HOLES){

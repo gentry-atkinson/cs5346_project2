@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdio>
 
 #include "Tree.h"
 
@@ -8,7 +9,7 @@ int main()
 {
     Tree * tree1, * tree2;
     char lastPlayer, currentPlayer;
-    int lastMove, aScore, bScore, depth;
+    int lastMove, aScore, bScore, depth, turn;
 
     //Case 1: Vishal vs. Gentry with MinMaxAB at depth 3
     depth = 2;
@@ -17,14 +18,19 @@ int main()
     currentPlayer = 'A';
     lastPlayer = Tree::FIRST_MOVE;
     lastMove = 0;
+    turn = 0;
 
     while(! tree1->getFinished() && ! tree2->getFinished()){
         tree1->play(currentPlayer, lastPlayer, lastMove);
         tree2->play(currentPlayer, lastPlayer, lastMove);
+        turn++;
+        getchar();
     }
 
     aScore = tree1->getAScore();
     bScore = tree2->getBScore();
+
+    cout << turn << " turns played" << endl;
 
     if (aScore > bScore){
         cout << "Gentry wins " << aScore << " to " << bScore << endl;

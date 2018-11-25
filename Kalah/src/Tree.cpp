@@ -199,6 +199,8 @@ int Tree::chooseBestMove(){
 }
 
 void Tree::play(char& currentPlayer, char& lastPlayer, int& lastMove){
+    cout << "Current player is " << currentPlayer << endl;
+    cout << "Last player is " << lastPlayer << endl;
     //Case 1: first move for A
     if (currentPlayer == 'A' && lastPlayer == FIRST_MOVE){
         lastPlayer = currentPlayer;

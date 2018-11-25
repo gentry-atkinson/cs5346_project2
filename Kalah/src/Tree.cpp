@@ -53,6 +53,9 @@ int Tree::getParent(int current){
     return (current / 6);
 }
 
+//node 0 is the root and should be in a position determind in play()
+//every child node is a legal move from its parent
+//an illegal child duplicates its parent
 void Tree::buildTree(){
     int currentNode = 1;
     int currentDepth;
@@ -70,6 +73,10 @@ void Tree::buildTree(){
             else
                 boards[currentNode].setValue(-9999);
             currentNode++;
+            if (currentNode == totalBoards+1){
+                cerr << "Out of bounds board reached in buildTree" << endl;
+                break;
+            }
         }
     }
 

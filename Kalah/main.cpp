@@ -12,7 +12,7 @@ int main()
     int lastMove, aScore, bScore, depth, turn;
 
     //Case 1: Vishal vs. Gentry with MinMaxAB at depth 3
-    depth = 2;
+    depth = 1;
     tree1 = new Tree(Tree::MINMAXAB, Tree::GENTRY, depth, 'A');
     tree2 = new Tree(Tree::MINMAXAB, Tree::VISHAL, depth, 'B');
     currentPlayer = 'A';
@@ -50,15 +50,15 @@ int main()
     //Case 3: MinMax vs. AlphaBeta with Vishal at depth 3
     //Case 4: MinMax vs. AlphaBeta with Gentry at depth 3
 
-    //Case 5: Vishal vs. Gentry with MinMaxAB at depth 4
-    //Case 6: Vishal vs. Gentry with AlphaBeta at depth 4
-    //Case 7: MinMax vs. AlphaBeta with Vishal at depth 4
-    //Case 8: MinMax vs. AlphaBeta with Gentry at depth 4
+    //Case 5: Vishal vs. Gentry with MinMaxAB at depth 5
+    //Case 6: Vishal vs. Gentry with AlphaBeta at depth 5
+    //Case 7: MinMax vs. AlphaBeta with Vishal at depth 5
+    //Case 8: MinMax vs. AlphaBeta with Gentry at depth 5
 
-    //Case 9: Vishal vs. Gentry with MinMaxAB at depth 6
-    //Case 10: Vishal vs. Gentry with AlphaBeta at depth 6
-    //Case 11: MinMax vs. AlphaBeta with Vishal at depth 6
-    //Case 12: MinMax vs. AlphaBeta with Gentry at depth 6
+    //Case 9: Vishal vs. Gentry with MinMaxAB at depth 10
+    //Case 10: Vishal vs. Gentry with AlphaBeta at depth 10
+    //Case 11: MinMax vs. AlphaBeta with Vishal at depth 10
+    //Case 12: MinMax vs. AlphaBeta with Gentry at depth 10
 
     return 0;
 }

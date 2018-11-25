@@ -12,7 +12,7 @@ int main()
     int lastMove, aScore, bScore, depth, turn;
 
     //Case 1: Vishal vs. Gentry with MinMaxAB at depth 3
-    depth = 1;
+    depth = 2;
     tree1 = new Tree(Tree::MINMAXAB, Tree::GENTRY, depth, 'A');
     tree2 = new Tree(Tree::MINMAXAB, Tree::VISHAL, depth, 'B');
     currentPlayer = 'A';
@@ -24,9 +24,9 @@ int main()
         tree1->play(currentPlayer, lastPlayer, lastMove);
         tree2->play(currentPlayer, lastPlayer, lastMove);
         turn++;
-        tree1->draw();
-        tree2->draw();
-        getchar();
+        //tree1->draw();
+        //tree2->draw();
+        //getchar();
     }
 
     aScore = tree1->getAScore();

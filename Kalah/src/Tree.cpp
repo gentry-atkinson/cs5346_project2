@@ -40,12 +40,16 @@ int Tree::getTier(int boardNumber){
         tier++;
         total += pow(NUM_HOLES, tier);
     }
-    cout << "Child " << boardNumber << " is on tier " << tier << endl;
+    //cout << "Child " << boardNumber << " is on tier " << tier << endl;
     return tier;
 }
 
 int Tree::getChild(int current, int moveNum){
- return (6*current + moveNum + 1);
+    int child = (6*current + moveNum + 1);
+    if (child >= totalBoards){
+        cerr << "Child produced in getChild is out of bounds" << endl;
+    }
+    return child;
 }
 
 int Tree::getParent(int current){
@@ -68,7 +72,7 @@ void Tree::buildTree(){
             }
             if (currentDepth == maxDepth){
                 boards[currentNode].setValue(player, valueAlg);
-                cout << "Leaf node: " << boards[currentNode].getValue() << endl;
+                //cout << "Leaf node: " << boards[currentNode].getValue() << endl;
             }
             else
                 boards[currentNode].setValue(-9999);
@@ -82,10 +86,10 @@ void Tree::buildTree(){
 
     switch (searchAlg){
         case MINMAXAB:
-            minMaxAB(1, 1, player, 99999, -99999);
+            minMaxAB(0, 0, player, 99999, -99999);
             break;
         case ALPHABETA:
-            alphabeta(1, 1, player, 99999, -99999);
+            alphabeta(0, 0, player, 99999, -99999);
             break;
         default:
             cerr << "Bad search algorithm number in buildTree()" << endl;
@@ -123,6 +127,7 @@ int Tree::minMaxAB(int currentNode, int depth, char player, int useThresh, int p
     //if deep enough
     if(depth == maxDepth)
     {
+        //cout << "Leaf node in MMAB. Value: " << boards[currentNode].getValue() << endl;
         return boards[currentNode].getValue();
     }
 
@@ -206,26 +211,26 @@ int Tree::chooseBestMove(){
             bestMove = i;
             bestVal = boards[i].getValue();
         }
-        cout << "Best move: " << boards[bestMove].getValue() << endl;
+        //cout << "Best move: " << boards[bestMove].getValue() << endl;
     }
 
-    cout << "My best move is " << bestMove << endl;
+    //cout << "My best move is " << bestMove-1 << endl;
     return bestMove-1;
 }
 
 void Tree::play(char& currentPlayer, char& lastPlayer, int& lastMove){
-    cout << "Current player is " << currentPlayer << endl;
-    cout << "Last player is " << lastPlayer << endl;
+    //cout << "Current player is " << currentPlayer << endl;
+    //cout << "Last player is " << lastPlayer << endl;
     //Case 1: first move for A
     if (currentPlayer == 'A' && lastPlayer == FIRST_MOVE){
-        cout << "First move" << endl;
+        //cout << "First move" << endl;
         lastPlayer = currentPlayer;
         lastMove = chooseBestMove();
         currentPlayer = boards[0].makeMove(player, lastMove);
     }
     //Case 2: update board then choose move then update board
     else if (currentPlayer == player && lastPlayer != currentPlayer){
-        cout << player << "'s move and " << lastPlayer << " went last time." << endl;
+        //cout << player << "'s move and " << lastPlayer << " went last time." << endl;
         boards[0].makeMove(lastPlayer, lastMove);
         buildTree();
         lastPlayer = currentPlayer;
@@ -235,7 +240,7 @@ void Tree::play(char& currentPlayer, char& lastPlayer, int& lastMove){
     }
     //Case 3: choose move then update board
     else if (currentPlayer == player && lastPlayer == currentPlayer){
-        cout << player << "'s move and I'm going again" << endl;
+        //cout << player << "'s move and I'm going again" << endl;
         lastPlayer = currentPlayer;
         lastMove = chooseBestMove();
         currentPlayer = boards[0].makeMove(player, lastMove);
@@ -243,7 +248,7 @@ void Tree::play(char& currentPlayer, char& lastPlayer, int& lastMove){
     }
     //Case 4: update board without choosing move
     else if (currentPlayer != player){
-        cout << "I just need to update" << endl;
+        //cout << "I just need to update" << endl;
         boards[0].makeMove(lastPlayer, lastMove);
         buildTree();
     }

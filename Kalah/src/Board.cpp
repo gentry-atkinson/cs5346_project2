@@ -291,28 +291,28 @@ bool Board::operator==(const Board& toCompare){
 bool Board::isLegal(char player, int hole){
     //cannot move if the game is over
     if (finished) {
-        cerr << "isLegal called for finished board" << endl;
+        //cerr << "isLegal called for finished board" << endl;
         return false;
     }
 
     if (player != 'A' && player != 'B'){
-        cerr << "Bad player value passed to isLegal" << endl;
+        //cerr << "Bad player value passed to isLegal" << endl;
         return false;
     }
 
     //hole must be in range
     if (hole < 0 || hole >= NUM_HOLES){
-        cerr << hole << " hole value outside of range in isLegal" << endl;
+        //cerr << hole << " hole value outside of range in isLegal" << endl;
         return false;
     }
 
     //moving an empty hole is not legal
     if (player == 'A' && playerAHoles[hole] == 0) {
-        cerr << hole << " hole is empty in isLegal" << endl;
+        //cerr << hole << " hole is empty in isLegal" << endl;
         return false;
     }
     if (player == 'B' && playerBHoles[hole] == 0) {
-        cerr << hole << " hole is empty in isLegal" << endl;
+        //cerr << hole << " hole is empty in isLegal" << endl;
         return false;
     }
     return true;

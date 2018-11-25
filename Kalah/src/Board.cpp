@@ -308,12 +308,12 @@ bool Board::isLegal(char player, int hole){
 
     //moving an empty hole is not legal
     if (player == 'A' && playerAHoles[hole] == 0) {
-        return false;
         cerr << hole << " hole is empty in isLegal" << endl;
+        return false;
     }
     if (player == 'B' && playerBHoles[hole] == 0) {
-        return false;
         cerr << hole << " hole is empty in isLegal" << endl;
+        return false;
     }
     return true;
 }
@@ -326,7 +326,8 @@ char Board::makeMove(char player, int hole){
 
     if (!isLegal(player, hole)){
         cerr << "Illegal move attempted in makeMove" << endl;
-        return 'C';
+        value = -9999;
+        return player;
     }
 
     //remove stones from played hole

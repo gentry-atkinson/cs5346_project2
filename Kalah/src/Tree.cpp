@@ -197,17 +197,20 @@ int Tree::alphabeta(int currentNode, int depth, char player, int alpha, int beta
 }
 
 int Tree::chooseBestMove(){
-    int bestMove = 0;
-    for (int i = 1; i < NUM_HOLES; i++){
-        if (!boards[i].isLegal(player, i))
+    int bestMove;
+    int bestVal = -9999;
+    for (int i = 1; i <= NUM_HOLES; i++){
+        if (!boards[0].isLegal(player, i-1))
             continue;
-        if (boards[i].getValue() > boards[bestMove].getValue())
+        if (boards[i].getValue() > bestVal){
             bestMove = i;
+            bestVal = boards[i].getValue();
+        }
         cout << "Best move: " << boards[bestMove].getValue() << endl;
     }
 
     cout << "My best move is " << bestMove << endl;
-    return bestMove;
+    return bestMove-1;
 }
 
 void Tree::play(char& currentPlayer, char& lastPlayer, int& lastMove){

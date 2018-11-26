@@ -1,220 +1,506 @@
-//#include <iostream>
-//#include <stdio.h>
-#include "Board.h"
-//#include "Tree.h"
-//#include "alphabeta.h"
-//#include "minmaxAB.h"
+#include <iostream>
+#include <cstdio>
+
+#include "Tree.h"
 
 using namespace std;
 
-//int steps;
-//void Board::setValue(int algorithm, int player)
-//pass 1 for Gentry's algorithm
-//pass 2 for Vishal's algorithm
-//
-//Player 1 is "bottom" player, Player 2 is the "top"
+int main()
+{
+    Tree * tree1, * tree2;
+    char lastPlayer, currentPlayer;
+    int lastMove, aScore, bScore, depth, turn;
 
-const int GentryAlgorithm = 1;
-const int VishalAlgorithm = 2;
-const int MinMaxAB = 1;
-const int ABSearch = 2;
-const int TopPlayer = 2;
-const int BottomPlayer = 1;
+    //Case 1: Vishal vs. Gentry with MinMaxAB at depth 3
+    cout << "***************************" << endl;
+    cout << "Vishal vs. Gentry with MinMaxAB at depth 3" << endl;
+    depth = 3;
+    tree1 = new Tree(Tree::MINMAXAB, Tree::GENTRY, depth, 'A');
+    tree2 = new Tree(Tree::MINMAXAB, Tree::VISHAL, depth, 'B');
+    currentPlayer = 'A';
+    lastPlayer = Tree::FIRST_MOVE;
+    lastMove = 0;
+    turn = 0;
+    aScore = 0;
+    bScore = 0;
 
-int main() {
+    while(! tree1->getFinished() && ! tree2->getFinished()){
+        tree1->play(currentPlayer, lastPlayer, lastMove);
+        tree2->play(currentPlayer, lastPlayer, lastMove);
+        turn++;
+        //tree1->draw();
+        //tree2->draw();
+        //getchar();
+    }
 
-    Board myBoard;
+    aScore = tree2->getAScore();
+    bScore = tree2->getBScore();
+
+    cout << turn << " turns played" << endl;
+
+    if (aScore > bScore){
+        cout << "Gentry wins " << aScore << " to " << bScore << endl;
+    }
+    else if (bScore > aScore){
+        cout << "Vishal wins " << bScore << " to " << aScore << endl;
+    }
+    else {
+        cout << "Tie game." << endl;
+    }
+
+    delete tree1;
+    delete tree2;
+    getchar();
+    //Case 2: Vishal vs. Gentry with AlphaBeta at depth 3
+
+    cout << "***************************" << endl;
+    cout << "Vishal vs. Gentry with AlphaBeta at depth 3" << endl;
+    depth = 3;
+    tree1 = new Tree(Tree::ALPHABETA, Tree::GENTRY, depth, 'A');
+    tree2 = new Tree(Tree::ALPHABETA, Tree::VISHAL, depth, 'B');
+    currentPlayer = 'A';
+    lastPlayer = Tree::FIRST_MOVE;
+    lastMove = 0;
+    turn = 0;
+    aScore = 0;
+    bScore = 0;
+
+    while(! tree1->getFinished() && ! tree2->getFinished()){
+        tree1->play(currentPlayer, lastPlayer, lastMove);
+        tree2->play(currentPlayer, lastPlayer, lastMove);
+        turn++;
+        //tree1->draw();
+        //tree2->draw();
+        //getchar();
+    }
+
+    aScore = tree2->getAScore();
+    bScore = tree2->getBScore();
+
+    cout << turn << " turns played" << endl;
+
+    if (aScore > bScore){
+        cout << "Gentry wins " << aScore << " to " << bScore << endl;
+    }
+    else if (bScore > aScore){
+        cout << "Vishal wins " << bScore << " to " << aScore << endl;
+    }
+    else {
+        cout << "Tie game." << endl;
+    }
+
+    delete tree1;
+    delete tree2;
+    getchar();
+
+    //Case 3: MinMax vs. AlphaBeta with Vishal at depth 3
+    cout << "***************************" << endl;
+    cout << "MinMax vs. AlphaBeta with Vishal at depth 3" << endl;
+    depth = 3;
+    tree1 = new Tree(Tree::MINMAXAB, Tree::VISHAL, depth, 'A');
+    tree2 = new Tree(Tree::ALPHABETA, Tree::VISHAL, depth, 'B');
+    currentPlayer = 'A';
+    lastPlayer = Tree::FIRST_MOVE;
+    lastMove = 0;
+    turn = 0;
+    aScore = 0;
+    bScore = 0;
+
+    while(! tree1->getFinished() && ! tree2->getFinished()){
+        tree1->play(currentPlayer, lastPlayer, lastMove);
+        tree2->play(currentPlayer, lastPlayer, lastMove);
+        turn++;
+        //tree1->draw();
+        //tree2->draw();
+        //getchar();
+    }
+
+    aScore = tree2->getAScore();
+    bScore = tree2->getBScore();
+
+    cout << turn << " turns played" << endl;
+
+    if (aScore > bScore){
+        cout << "MinMaxAB wins " << aScore << " to " << bScore << endl;
+    }
+    else if (bScore > aScore){
+        cout << "AlphaBeta wins " << bScore << " to " << aScore << endl;
+    }
+    else {
+        cout << "Tie game." << endl;
+    }
+
+    delete tree1;
+    delete tree2;
+    getchar();
+
+    //Case 4: MinMax vs. AlphaBeta with Gentry at depth 3
+    cout << "***************************" << endl;
+    cout << "MinMax vs. AlphaBeta with Gentry at depth 3" << endl;
+    depth = 3;
+    tree1 = new Tree(Tree::MINMAXAB, Tree::GENTRY, depth, 'A');
+    tree2 = new Tree(Tree::ALPHABETA, Tree::GENTRY, depth, 'B');
+    currentPlayer = 'A';
+    lastPlayer = Tree::FIRST_MOVE;
+    lastMove = 0;
+    turn = 0;
+    aScore = 0;
+    bScore = 0;
+
+    while(! tree1->getFinished() && ! tree2->getFinished()){
+        tree1->play(currentPlayer, lastPlayer, lastMove);
+        tree2->play(currentPlayer, lastPlayer, lastMove);
+        turn++;
+        //tree1->draw();
+        //tree2->draw();
+        //getchar();
+    }
+
+    aScore = tree2->getAScore();
+    bScore = tree2->getBScore();
+
+    cout << turn << " turns played" << endl;
+
+    if (aScore > bScore){
+        cout << "MinMaxAB wins " << aScore << " to " << bScore << endl;
+    }
+    else if (bScore > aScore){
+        cout << "AlphaBeta wins " << bScore << " to " << aScore << endl;
+    }
+    else {
+        cout << "Tie game." << endl;
+    }
+
+    delete tree1;
+    delete tree2;
+    getchar();
+
+    //Case 5: Vishal vs. Gentry with MinMaxAB at depth 5
+    cout << "***************************" << endl;
+    cout << "Vishal vs. Gentry with MinMaxAB at depth 5" << endl;
+    depth = 5;
+    tree1 = new Tree(Tree::MINMAXAB, Tree::GENTRY, depth, 'A');
+    tree2 = new Tree(Tree::MINMAXAB, Tree::VISHAL, depth, 'B');
+    currentPlayer = 'A';
+    lastPlayer = Tree::FIRST_MOVE;
+    lastMove = 0;
+    turn = 0;
+    aScore = 0;
+    bScore = 0;
+
+    while(! tree1->getFinished() && ! tree2->getFinished()){
+        tree1->play(currentPlayer, lastPlayer, lastMove);
+        tree2->play(currentPlayer, lastPlayer, lastMove);
+        turn++;
+        //tree1->draw();
+        //tree2->draw();
+        //getchar();
+    }
+
+    aScore = tree2->getAScore();
+    bScore = tree2->getBScore();
+
+    cout << turn << " turns played" << endl;
+
+    if (aScore > bScore){
+        cout << "Gentry wins " << aScore << " to " << bScore << endl;
+    }
+    else if (bScore > aScore){
+        cout << "Vishal wins " << bScore << " to " << aScore << endl;
+    }
+    else {
+        cout << "Tie game." << endl;
+    }
+
+    delete tree1;
+    delete tree2;
+    getchar();
+
+    //Case 6: Vishal vs. Gentry with AlphaBeta at depth 5
+    cout << "***************************" << endl;
+    cout << "Vishal vs. Gentry with AlphaBeta at depth 5" << endl;
+    depth = 5;
+    tree1 = new Tree(Tree::ALPHABETA, Tree::GENTRY, depth, 'A');
+    tree2 = new Tree(Tree::ALPHABETA, Tree::VISHAL, depth, 'B');
+    currentPlayer = 'A';
+    lastPlayer = Tree::FIRST_MOVE;
+    lastMove = 0;
+    turn = 0;
+    aScore = 0;
+    bScore = 0;
+
+    while(! tree1->getFinished() && ! tree2->getFinished()){
+        tree1->play(currentPlayer, lastPlayer, lastMove);
+        tree2->play(currentPlayer, lastPlayer, lastMove);
+        turn++;
+        //tree1->draw();
+        //tree2->draw();
+        //getchar();
+    }
+
+    aScore = tree2->getAScore();
+    bScore = tree2->getBScore();
+
+    cout << turn << " turns played" << endl;
+
+    if (aScore > bScore){
+        cout << "Gentry wins " << aScore << " to " << bScore << endl;
+    }
+    else if (bScore > aScore){
+        cout << "Vishal wins " << bScore << " to " << aScore << endl;
+    }
+    else {
+        cout << "Tie game." << endl;
+    }
+
+    delete tree1;
+    delete tree2;
+    getchar();
+
+    //Case 7: MinMax vs. AlphaBeta with Vishal at depth 5
+    cout << "***************************" << endl;
+    cout << "MinMax vs. AlphaBeta with Vishal at depth 5" << endl;
+    depth = 5;
+    tree1 = new Tree(Tree::MINMAXAB, Tree::VISHAL, depth, 'A');
+    tree2 = new Tree(Tree::ALPHABETA, Tree::VISHAL, depth, 'B');
+    currentPlayer = 'A';
+    lastPlayer = Tree::FIRST_MOVE;
+    lastMove = 0;
+    turn = 0;
+    aScore = 0;
+    bScore = 0;
+
+    while(! tree1->getFinished() && ! tree2->getFinished()){
+        tree1->play(currentPlayer, lastPlayer, lastMove);
+        tree2->play(currentPlayer, lastPlayer, lastMove);
+        turn++;
+        //tree1->draw();
+        //tree2->draw();
+        //getchar();
+    }
+
+    aScore = tree2->getAScore();
+    bScore = tree2->getBScore();
+
+    cout << turn << " turns played" << endl;
+
+    if (aScore > bScore){
+        cout << "MinMaxAB wins " << aScore << " to " << bScore << endl;
+    }
+    else if (bScore > aScore){
+        cout << "AlphaBeta wins " << bScore << " to " << aScore << endl;
+    }
+    else {
+        cout << "Tie game." << endl;
+    }
+
+    delete tree1;
+    delete tree2;
+    getchar();
+
+    //Case 8: MinMax vs. AlphaBeta with Gentry at depth 5
+    cout << "***************************" << endl;
+    cout << "MinMax vs. AlphaBeta with Gentry at depth 5" << endl;
+    depth = 5;
+    tree1 = new Tree(Tree::MINMAXAB, Tree::GENTRY, depth, 'A');
+    tree2 = new Tree(Tree::ALPHABETA, Tree::GENTRY, depth, 'B');
+    currentPlayer = 'A';
+    lastPlayer = Tree::FIRST_MOVE;
+    lastMove = 0;
+    turn = 0;
+    aScore = 0;
+    bScore = 0;
+
+    while(! tree1->getFinished() && ! tree2->getFinished()){
+        tree1->play(currentPlayer, lastPlayer, lastMove);
+        tree2->play(currentPlayer, lastPlayer, lastMove);
+        turn++;
+        //tree1->draw();
+        //tree2->draw();
+        //getchar();
+    }
+
+    aScore = tree2->getAScore();
+    bScore = tree2->getBScore();
+
+    cout << turn << " turns played" << endl;
+
+    if (aScore > bScore){
+        cout << "MinMaxAB wins " << aScore << " to " << bScore << endl;
+    }
+    else if (bScore > aScore){
+        cout << "AlphaBeta wins " << bScore << " to " << aScore << endl;
+    }
+    else {
+        cout << "Tie game." << endl;
+    }
+
+    delete tree1;
+    delete tree2;
+    getchar();
+
+    //Case 9: Vishal vs. Gentry with MinMaxAB at depth 7
+    cout << "***************************" << endl;
+    cout << "Vishal vs. Gentry with MinMaxAB at depth 7" << endl;
+    depth = 7;
+    tree1 = new Tree(Tree::MINMAXAB, Tree::GENTRY, depth, 'A');
+    tree2 = new Tree(Tree::MINMAXAB, Tree::VISHAL, depth, 'B');
+    //cout << "Total tree size is: " << tree1->getTotalBoards() << endl;
+    currentPlayer = 'A';
+    lastPlayer = Tree::FIRST_MOVE;
+    lastMove = 0;
+    turn = 0;
+    aScore = 0;
+    bScore = 0;
+
+    while(! tree1->getFinished() && ! tree2->getFinished()){
+        tree1->play(currentPlayer, lastPlayer, lastMove);
+        tree2->play(currentPlayer, lastPlayer, lastMove);
+        turn++;
+        //tree1->draw();
+        //tree2->draw();
+        //getchar();
+    }
+
+    aScore = tree2->getAScore();
+    bScore = tree2->getBScore();
+
+    cout << turn << " turns played" << endl;
+
+    if (aScore > bScore){
+        cout << "Gentry wins " << aScore << " to " << bScore << endl;
+    }
+    else if (bScore > aScore){
+        cout << "Vishal wins " << bScore << " to " << aScore << endl;
+    }
+    else {
+        cout << "Tie game." << endl;
+    }
+
+    delete tree1;
+    delete tree2;
+    getchar();
+
+    //Case 10: Vishal vs. Gentry with AlphaBeta at depth 7
+    cout << "***************************" << endl;
+    cout << "Vishal vs. Gentry with AlphaBeta at depth 7" << endl;
+    depth = 7;
+    tree1 = new Tree(Tree::ALPHABETA, Tree::GENTRY, depth, 'A');
+    tree2 = new Tree(Tree::ALPHABETA, Tree::VISHAL, depth, 'B');
+    currentPlayer = 'A';
+    lastPlayer = Tree::FIRST_MOVE;
+    lastMove = 0;
+    turn = 0;
+    aScore = 0;
+    bScore = 0;
+
+    while(! tree1->getFinished() && ! tree2->getFinished()){
+        tree1->play(currentPlayer, lastPlayer, lastMove);
+        tree2->play(currentPlayer, lastPlayer, lastMove);
+        turn++;
+        //tree1->draw();
+        //tree2->draw();
+        //getchar();
+    }
+
+    aScore = tree2->getAScore();
+    bScore = tree2->getBScore();
+
+    cout << turn << " turns played" << endl;
+
+    if (aScore > bScore){
+        cout << "Gentry wins " << aScore << " to " << bScore << endl;
+    }
+    else if (bScore > aScore){
+        cout << "Vishal wins " << bScore << " to " << aScore << endl;
+    }
+    else {
+        cout << "Tie game." << endl;
+    }
+
+    delete tree1;
+    delete tree2;
+    getchar();
+
+    //Case 11: MinMax vs. AlphaBeta with Vishal at depth 7
+    cout << "***************************" << endl;
+    cout << "MinMax vs. AlphaBeta with Vishal at depth 7" << endl;
+    depth = 7;
+    tree1 = new Tree(Tree::MINMAXAB, Tree::VISHAL, depth, 'A');
+    tree2 = new Tree(Tree::ALPHABETA, Tree::VISHAL, depth, 'B');
+    currentPlayer = 'A';
+    lastPlayer = Tree::FIRST_MOVE;
+    lastMove = 0;
+    turn = 0;
+    aScore = 0;
+    bScore = 0;
+
+    while(! tree1->getFinished() && ! tree2->getFinished()){
+        tree1->play(currentPlayer, lastPlayer, lastMove);
+        tree2->play(currentPlayer, lastPlayer, lastMove);
+        turn++;
+        //tree1->draw();
+        //tree2->draw();
+        //getchar();
+    }
+
+    aScore = tree2->getAScore();
+    bScore = tree2->getBScore();
+
+    cout << turn << " turns played" << endl;
+
+    if (aScore > bScore){
+        cout << "MinMaxAB wins " << aScore << " to " << bScore << endl;
+    }
+    else if (bScore > aScore){
+        cout << "AlphaBeta wins " << bScore << " to " << aScore << endl;
+    }
+    else {
+        cout << "Tie game." << endl;
+    }
+
+    delete tree1;
+    delete tree2;
+    getchar();
+    //Case 12: MinMax vs. AlphaBeta with Gentry at depth 7
+    cout << "***************************" << endl;
+    cout << "MinMax vs. AlphaBeta with Gentry at depth 7" << endl;
+    depth = 7;
+    tree1 = new Tree(Tree::MINMAXAB, Tree::GENTRY, depth, 'A');
+    tree2 = new Tree(Tree::ALPHABETA, Tree::GENTRY, depth, 'B');
+    currentPlayer = 'A';
+    lastPlayer = Tree::FIRST_MOVE;
+    lastMove = 0;
+    turn = 0;
+    aScore = 0;
+    bScore = 0;
+
+    while(! tree1->getFinished() && ! tree2->getFinished()){
+        tree1->play(currentPlayer, lastPlayer, lastMove);
+        tree2->play(currentPlayer, lastPlayer, lastMove);
+        turn++;
+        //tree1->draw();
+        //tree2->draw();
+        //getchar();
+    }
+
+    aScore = tree2->getAScore();
+    bScore = tree2->getBScore();
+
+    cout << turn << " turns played" << endl;
+
+    if (aScore > bScore){
+        cout << "MinMaxAB wins " << aScore << " to " << bScore << endl;
+    }
+    else if (bScore > aScore){
+        cout << "AlphaBeta wins " << bScore << " to " << aScore << endl;
+    }
+    else {
+        cout << "Tie game." << endl;
+    }
+
+    delete tree1;
+    delete tree2;
 
     return 0;
 }
-
-////int main()
-////{
-////    Tree playerOneTree;
-////    Tree playerTwoTree(1, 1, 3, 2);
-////
-////    playerOneTree.drawRoot();
-////    playerTwoTree.drawRoot();
-////
-////    int player = 1;
-////    bool finished = false;
-////    int lastMove = 99;
-////
-////    while (!finished){
-////        if (player == 1){
-////            lastMove = playerOneTree.play(lastMove, finished, player);
-////            playerTwoTree.play(lastMove, finished, player);
-////        }
-////        else{
-////            lastMove = playerTwoTree.play(lastMove, finished, player);
-////            playerOneTree.play(lastMove, finished, player);
-////        }
-////
-////        getchar();
-////    }
-////    playerOneTree.drawRoot();
-//
-//
-//
-//void AlphaBeta()
-//{
-//    Board *b = new Board();
-//    cout << "Initial board using AB :" << endl;
-//    b->draw();
-//    char win = b->isFinished();
-//    char player = 'A';
-//    cout<<"Did i reach here ? "<<endl;
-//    while(win == 'N')
-//    {
-//        steps++;
-//        Tree *head = new Tree(player);
-//        head->copyBoardStatus(b);
-//        cout << "Player" << player <<" Turn :"<< endl;
-//        alphabeta(head,0,player,1000,-1000);
-//        int hole = head->getHole();
-//        player = b->move(hole,player);
-//        b->draw();
-//        win = b->isFinished();
-//    }
-//    b->draw();
-//    cout<<"Player :" <<win<<" WINS!!!"<<endl;
-//}
-//
-//void MinMaxAB()
-//{
-//    Board *b = new Board();
-//    cout << "Initial board using MinimaxAB :" << endl;
-//    b->draw();
-//    char win = b->isFinished();
-//    char player = 'A';
-//    while(win == 'N')
-//    {
-//        steps++;
-//        Tree *head = new Tree(player);
-//        head->copyBoardStatus( b);
-//        cout << "Player" << player <<" Turn :"<< endl;
-//        minMaxAB(head,0,player,10000,-10000);
-//        int hole = head->value;
-//        cout<< "hole # "<<hole<<endl;
-//        player = b->move(hole,player);
-//        b->draw();
-//        win = b->isFinished();
-//    }
-//    b->draw();
-//    cout<<"Player :" <<win<<" WINS!!!"<<endl;
-//}
-//
-//void minmaxABVsalphabeta()
-//{
-//    Board *b = new Board();
-//    cout << "Initial board " << endl;
-//    b->draw();
-//    char win = b->isFinished();
-//    char player = 'A';
-//    while(win == 'N')
-//    {
-//        steps++;
-//        Tree *head = new Tree(player);
-//        head->copyBoardStatus(b);
-//        cout << "Player : " << player << endl;
-//        if(player == 'A')
-//        {
-//            minMaxAB(head,0,player,1000,-1000);
-//            int hole = head->value;
-//            cout<< "hole # "<<hole<<endl;
-//            player = b->move(hole,player);
-//        }
-//        else if(player == 'B')
-//        {
-//            alphabeta(head,0,player,1000,-1000);
-//            int hole = head->getHole();
-//            player = b->move(hole,player);
-//        }
-//        b->draw();
-//        win = b->isFinished();
-//    }
-//
-//     b->draw();
-//     cout<<"Player :" <<win<<" WINS!!!"<<endl;
-//}
-//
-//
-//
-//void UserVsUser()
-//{
-//    Board *b = new Board();
-//    cout << "Initial board " << endl;
-//    b->draw();
-//    char win = b->isFinished();
-//    char player = 'A';
-//
-//    while(win == 'N')
-//    {
-//        steps++;
-//        cout << "Player :" << player << endl;
-//        if(player == 'A')
-//        {
-//            int hole;
-//            cout << "Enter the P1 or player A hole number you wish to move  :" << endl;
-//            cin >> hole;
-//            while(!b->isLegal(player, hole))
-//            {
-//                cout<<"Illegal move, choose another hole to move"<<endl;
-//                cout << "Enter the P1 or player A hole number you wish to move  :" << endl;
-//                cin >> hole;
-//            }
-//            player = b->move(hole,player);
-//        }
-//        else if(player == 'B')
-//        {
-//            int hole;
-//            cout << "Enter the P2 or player B hole number you wish to move  :" << endl;
-//            cin >> hole;
-//            while(!b->isLegal(player, hole))
-//            {
-//                cout<<"Illegal move, choose another hole"<<endl;
-//                cout << "Enter the P2 or player B hole number you wish to move  :" << endl;
-//                cin >> hole;
-//            }
-//            player = b->move(hole,player);
-//        }
-//        b->draw();
-//        win = b->isFinished();
-//    }
-//    b->draw();
-//    cout<<"Player :" <<win<<" WINS!!!"<<endl;
-//
-//}
-//
-//
-//
-//
-//int main()
-//{
-//    int x;//user choice
-//    cout<<"Lets play the game :" <<endl;
-//
-//    cout<<"Please select the algorithm with which you want to play"<<endl;
-//    cin>>x;
-//
-//    switch(x)
-//    {
-//    case 1 :
-//        AlphaBeta();
-//        break;
-//    case 2:
-//        MinMaxAB();
-//        break;
-//    case 3:
-//        minmaxABVsalphabeta();
-//        break;
-//    case 4:
-//        UserVsUser();
-//        break;
-//
-//    default:
-//        cout<<"Please enter a valid choice : "<<endl;
-//    }
-//
-//    return 0;
-//}

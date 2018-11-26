@@ -4,45 +4,63 @@
 
 class Board
 {
-public:
+    public:
+        //construstors and destructors
+        Board();
+        Board(const Board&);
+        ~Board();
 
-    Board();
-    Board(int[],int[],int,int);
-    Board(const Board *);
-    Board(const Board& toCopy);
-    ~Board();
+        //getters and setters
+        int getNumHoles();
+        int getAScore();
+        int getBScore();
+        int getValue();
+        void setValue(int);
+        void setValue(char, int);
+        bool getFinished();
 
-    char move_p1(int);
-    char move_p2(int);
-    char move(int hole, char player);
-    char  isFinished();
-    void draw();
-    int getAHoles(int i);
-    int getBHoles(int i);
+        //operator overloading
+        Board& operator=(const Board&);
+        bool operator==(const Board&);
+
+        //is a move legal for a certain player?
+        bool isLegal(char, int);
+
+        //allter the board in a legal fashion
+        char makeMove(char, int);
+
+        //draw the current board on the console
+        void drawBoard();
+
+        //returns the character of the opposite player
+        static char switchPlayer(char);
+
+    private:
+        //The number of holes for each player
+        static const int NUM_HOLES = 6;
+        //The number of stones in each hole at start
+        static const int NUM_STONES = 6;
+
+        //let A[0] be across from B[NUM_HOLES]
+        //let A[0] be closest to A's kalah
+        //let B[0] be closest to B's kalah
+        int playerAHoles[NUM_HOLES];
+        int playerBHoles[NUM_HOLES];
+
+        //A player's score is also the number of stones in his kalah
+        int playerAScore;
+        int playerBScore;
+
+        //The value of the board is calculated with the setValue func
+        int value;
+
+        //true when the board is finished
+        bool finished;
 
 
-
-    //    void setValue(int algorithm, int player);
-    //    void setValue (int newValue);
-    //    int getValue();
-    bool isLegal(char ,int);
-    //bool isFinished();
-
-    int getScore1();
-    int getScore2();
-    Board& operator= (const Board& other);
-
-
-private:
-    //int holes[14]= {0, 6, 6, 6, 6, 6, 6, 0, 6, 6, 6, 6, 6, 6};
-    int value;
-    bool finished;
-    int playerAHoles[6],playerBHoles[6];
-    int playerAScore,playerBScore,numberOfSlots;
-    int * playerPtr;
-
-    int gentryValue(int player);
-    int vishalValue(int player);
+        //called by setValue
+        void gentryValue(char);
+        void vishalValue(char);
 };
 
 #endif // BOARD_H

@@ -3,58 +3,52 @@
 
 #include "Board.h"
 
-//TODO: implement MinMaxAB
-//TODO: implement ABSearch
-//TODO: add MinMaxAB and ABSearch to buildTree
-//TODO: implement play function
 
 class Tree
 {
-public:
-    int value,stone;
-    char player;
-    Board bx;
-    Tree *stones[6];
+    public:
+        //constructors and destructors
+        Tree();
+        Tree(int, int, int, char);
+        virtual ~Tree();
 
-    Tree();
-    Tree(char);
+        //getters and setters
+        bool getFinished();
+        int getAScore();
+        int getBScore();
+        int getTotalBoards();
 
-    // Tree(int value, int search, int depth, int player);
-    // ~Tree();
-    // int play(int lastMove, bool& finished, int& player);
-    //void drawRoot();
+        //play function updates tree
+        void play(char&, char&, int&);
+        //draw the root board in tree
+        void draw();
 
-    void create_node(char);
-    void set_value(int);
-    void grab_all_stones();//add all children
-    bool IsitDeep(int );
-    void print(Tree *,int );
-    int evaluation();
-    int getHole();
-    void copyBoardStatus(Board b);
-
-
-private:
-
-    int depth;
-
-    int valueAlgorithm;
-    int searchAlgorithm;
-    Board * boards;
-    int totalBoards;
-
-    int getChildIndex(int parentIndex, int childNumber);
-    int getParentIndex(int childIndex);
-    void buildTree();
-    //int minMaxAB(int index, int depth, int player, int useThresh, int passThresh);
-    //int minMaxAB(Tree *index, int depth, int player, int useThresh, int passThresh);
-    //void setValue(int );
+        static const int MINMAXAB = 1;
+        static const int ALPHABETA = 2;
+        static const int GENTRY = 1;
+        static const int VISHAL = 2;
+        static const int FIRST_MOVE = 'F';
 
 
-    //int alphabeta(Tree *node, int depth, int player, int alpha, int beta);
+    private:
+        int searchAlg;
+        int valueAlg;
+        int maxDepth;
+        int totalBoards;
+        char player;
+        Board * boards;
 
+        static const int NUM_HOLES = 6;
 
+        int getChild(int, int);
+        int getParent(int);
+        int getTier(int);
 
+        void buildTree();
+        int alphabeta(int, int, char, int, int);
+        int minMaxAB(int, int , char , int , int);
+
+        int chooseBestMove();
 };
 
 #endif // TREE_H

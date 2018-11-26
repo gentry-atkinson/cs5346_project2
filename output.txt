@@ -1,0 +1,96 @@
+***************************
+Vishal vs. Gentry with MinMaxAB at depth 3
+30 turns played in 8009 cycles
+Gentry wins with a score of 37
+Gentry visited 5294 nodes.
+Vishal visited 3068 nodes.
+Gentry's tree contained 259 nodes in 16576 bytes.
+Vishals's tree contained 259 nodes in 16576 bytes.
+***************************
+Vishal vs. Gentry with AlphaBeta at depth 3
+28 turns played in 6780 cycles.
+Vishal wins with a score of 63
+Gentry visited 172 nodes.
+Vishal visited 180 nodes.
+Gentry's tree contained 259 nodes in 16576 bytes.
+Vishals's tree contained 259 nodes in 16576 bytes.
+***************************
+MinMax vs. AlphaBeta with Vishal at depth 3
+13 turns played in 3063 cycles.
+AlphaBeta wins with a score of 70
+MinMax visited 1179 nodes.
+AlphaBeta visited 84 nodes.
+MinMax's tree contained 259 nodes in 16576 bytes.
+AlphaBeta's tree contained 259 nodes in 16576 bytes.
+***************************
+MinMax vs. AlphaBeta with Gentry at depth 3
+24 turns played in 7815 cycles.
+MinMaxAB wins with a score of 38
+MinMax visited 4339 nodes.
+AlphaBeta visited 176 nodes.
+MinMax's tree contained 259 nodes in 16576 bytes.
+AlphaBeta's tree contained 259 nodes in 16576 bytes.
+***************************
+Vishal vs. Gentry with MinMaxAB at depth 5
+31 turns played in 157307 cycles.
+Gentry wins with a score of 37
+Gentry visited 78494 nodes.
+Vishal visited 22860 nodes.
+Gentry's tree contained 9331 nodes in 597184 bytes.
+Vishals's tree contained 9331 nodes in 597184 bytes.
+***************************
+Vishal vs. Gentry with AlphaBeta at depth 5
+28 turns played in 120424 cycles.
+Vishal wins with a score of 63
+Gentry visited 258 nodes.
+Vishal visited 270 nodes.
+Gentry's tree contained 9331 nodes in 597184 bytes.
+Vishals's tree contained 9331 nodes in 597184 bytes.
+***************************
+MinMax vs. AlphaBeta with Vishal at depth 5
+13 turns played in 57660 cycles.
+AlphaBeta wins with a score of 70
+MinMax visited 7798 nodes.
+AlphaBeta visited 126 nodes.
+MinMax's tree contained 9331 nodes in 597184 bytes.
+AlphaBeta's tree contained 9331 nodes in 597184 bytes.
+***************************
+MinMax vs. AlphaBeta with Gentry at depth 5
+44 turns played in 203766 cycles.
+MinMaxAB wins with a score of 37
+MinMax visited 137061 nodes.
+AlphaBeta visited 414 nodes.
+MinMax's tree contained 9331 nodes in 597184 bytes.
+AlphaBeta's tree contained 9331 nodes in 597184 bytes.
+***************************
+Vishal vs. Gentry with MinMaxAB at depth 7
+24 turns played in 4406564 cycles.
+Gentry wins with a score of 37
+Gentry visited 629440 nodes.
+Vishal visited 104535 nodes.
+Gentry's tree contained 335923 nodes in 21499072 bytes.
+Vishals's tree contained 335923 nodes in 21499072 bytes.
+***************************
+Vishal vs. Gentry with AlphaBeta at depth 7
+28 turns played in 4564723 cycles.
+Vishal wins with a score of 63
+Gentry visited 344 nodes.
+Vishal visited 360 nodes.
+Gentry's tree contained 335923 nodes in 21499072 bytes.
+Vishals's tree contained 335923 nodes in 21499072 bytes.
+***************************
+MinMax vs. AlphaBeta with Vishal at depth 7
+13 turns played in 1975129 cycles.
+AlphaBeta wins with a score of 70
+MinMax visited 48448 nodes.
+AlphaBeta visited 168 nodes.
+MinMax's tree contained 335923 nodes in 21499072 bytes.
+AlphaBeta's tree contained 335923 nodes in 21499072 bytes.
+***************************
+MinMax vs. AlphaBeta with Gentry at depth 7
+19 turns played in 3641563 cycles.
+MinMaxAB wins with a score of 62
+MinMax visited 666552 nodes.
+AlphaBeta visited 256 nodes.
+MinMax's tree contained 335923 nodes in 21499072 bytes.
+AlphaBeta's tree contained 335923 nodes in 21499072 bytes.

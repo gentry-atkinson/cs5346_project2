@@ -15,8 +15,6 @@ int main()
     int time;
     Board b1;
 
-    cout << "A board is " << sizeof(b1) << " bytes." << endl;
-
     //Case 1: Vishal vs. Gentry with MinMaxAB at depth 3
     time = clock();
     cout << "***************************" << endl;

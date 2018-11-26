@@ -51,7 +51,7 @@ void Board::gentryValue(char player){
 
     //Tuning Parameters
     int emptyRightScaling = 1;
-    int emptyCupScaling = 1;
+    int emptyCupScaling = 2;
     int scoreScaling = 5;
     int moveAgainCupsScaling = 2;
     int moreStonesScaling = 1;
@@ -83,13 +83,13 @@ void Board::gentryValue(char player){
             value -= moveAgainCupsScaling;
     }
 
-    //having more stones on my side is good-ish
+    //having less stones on my side is good-ish
     for (int i = 0; i < NUM_HOLES; i++){
         sumA += playerAHoles[i];
         sumB += playerBHoles[i];
     }
-    if (sumA > sumB) value += moreStonesScaling;
-    else if (sumB > sumA) value -= moreStonesScaling;
+    if (sumA < sumB) value += moreStonesScaling;
+    else if (sumB < sumA) value -= moreStonesScaling;
 
     //negate the score if the player is B
     if (player == 'A') return;

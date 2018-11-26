@@ -12,6 +12,7 @@ Tree::Tree(){
     maxDepth = 1;
     searchAlg = MINMAXAB;
     valueAlg = GENTRY;
+    nodesVisited = 0;
 
     buildTree();
 }
@@ -21,6 +22,7 @@ Tree::Tree(int searchAlg, int valueAlg, int maxDepth, char player){
     this->valueAlg = valueAlg;
     this->maxDepth = maxDepth;
     this->player = player;
+    nodesVisited = 0;
 
     totalBoards = 0;
     for (int i = 0; i <= maxDepth; i++)
@@ -104,6 +106,7 @@ bool Tree::getFinished() {return boards[0].getFinished();}
 int Tree::getAScore() {return boards[0].getAScore();}
 int Tree::getBScore() {return boards[0].getBScore();}
 int Tree::getTotalBoards() {return totalBoards;}
+long int Tree::getNodesVisited() {return nodesVisited;}
 
 //draw the root board in tree
 void Tree::draw() {
@@ -114,7 +117,7 @@ int Tree::minMaxAB(int currentNode, int depth, char player, int useThresh, int p
     int newValue;
     char resultSucc;
     int structure;
-
+    nodesVisited++;
     //check for bad values
     if (currentNode >= totalBoards){
         cerr << "Bad current node for minMaxAB" << endl;
@@ -165,7 +168,7 @@ int Tree::alphabeta(int currentNode, int depth, char player, int alpha, int beta
         cerr << "Bad depth value in alphabeta" << endl;
         return -9999;
     }
-
+    nodesVisited++;
     //node is a leaf node)
     if (depth == maxDepth)
         return boards[currentNode].getValue();

@@ -17,6 +17,7 @@ class Tree
         int getAScore();
         int getBScore();
         int getTotalBoards();
+        long int getNodesVisited();
 
         //play function updates tree
         void play(char&, char&, int&);
@@ -37,6 +38,7 @@ class Tree
         int totalBoards;
         char player;
         Board * boards;
+        long int nodesVisited;
 
         static const int NUM_HOLES = 6;
 

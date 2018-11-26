@@ -52,7 +52,7 @@ void Board::gentryValue(char player){
     //Tuning Parameters
     int emptyRightScaling = 1;
     int emptyCupScaling = 1;
-    int scoreScaling = 3;
+    int scoreScaling = 5;
     int moveAgainCupsScaling = 2;
     int moreStonesScaling = 1;
 
@@ -133,86 +133,86 @@ void Board::vishalValue(char player){
     //cout<<endl<<"---------"<<endl;
 
     // int oppvalue=0;
-    int high =0;
-//    for(int i=NUM_HOLES-1; i>0 ; i--)
-//    {
-//        if(playerAHoles[i]>playerAHoles[high])
-//            high=i;
-//    }
+    int high = 0;
+    for(int i=NUM_HOLES-1; i>0 ; i--)
+    {
+        if(playerAHoles[i]>playerAHoles[high])
+            high=i;
+    }
 //    //cout<<endl<<"Highest value in the opp end"<<endl<<high<<endl;
 //    int size = sizeof(store1)/store1[0];
 //
-//    if (player == 'A') playerNum = 1;
-//    else playerNum = 2;
-//
-//    switch (playerNum) {
-//        case 1:
-//            for(int i=0;i<size;i++)
-//            {
-//                score=0;
-//                search=store1[i];
-//                if(search ==0)
-//                {
-//                    if(playerAHoles[search+1]==12 || playerAHoles[search+2]==11 || playerAHoles[search+3]==10 || playerAHoles[search+4]==9||playerAHoles[search+5]==8)
-//                    {
-//                        score+=GrabFromEmpty;
-//                    }
-//                    value = score;
-//                    return;
-//                }
-//                else if(search ==1)
-//                {
-//                    if(playerAHoles[search+1]==12 || playerAHoles[search+2]==11 || playerAHoles[search+3]==10 || playerAHoles[search+4]==9 || playerAHoles[search-1]==1)
-//                    {
-//                        score+=GrabFromEmpty;
-//                    }
-//                    value = score;
-//                    return;
-//                }
-//                else if(search ==2)
-//                {
-//                    if(playerAHoles[search+1]==12 || playerAHoles[search+2]==11 || playerAHoles[search+3]==10||playerAHoles[search-1]==1||playerAHoles[search-2]==2)
-//                    {
-//                        score+=GrabFromEmpty;
-//                    }
-//                    value = score;
-//                    return;
-//                }
-//                else if(search ==3)
-//                {
-//                    if(playerAHoles[search+1]==12 || playerAHoles[search+2]==11||playerAHoles[search-1]==1||playerAHoles[search-2]==2||playerAHoles[search-3]==3)
-//                    {
-//                        score+=GrabFromEmpty;
-//                    }
-//                    value = score;
-//                    return;
-//                }
-//                else if(search ==4)
-//                {
-//                    if(playerAHoles[search+1]==12 || playerAHoles[search-1]==1|| playerAHoles[search-2]==2|| playerAHoles[search-3]==3|| playerAHoles[search-4]==4)
-//                    {
-//                        score+=GrabFromEmpty;
-//                    }
-//                    value = score;
-//                    return;
-//                }
-//                else if(search ==5)
-//                {
-//                    if(playerAHoles[search-1]==1|| playerAHoles[search-2]==2|| playerAHoles[search-3]==3|| playerAHoles[search-4]==4 || playerAHoles[search-5]==5)
-//                    {
-//                        score+=GrabFromEmpty;
-//                    }
-//                    value = score;
-//                    return;
-//                }
-//                //Will have to cover the other player's holes as well!
-//
-//            }
-//            break;
-//
-//        default:
-//            break;
-//    }
+    if (player == 'A') playerNum = 1;
+    else playerNum = 2;
+
+    switch (playerNum) {
+        case 1:
+            for(int i=0;i<NUM_HOLES;i++)
+            {
+                score=0;
+                search=store1[i];
+                if(search ==0)
+                {
+                    if(playerAHoles[search+1]==12 || playerAHoles[search+2]==11 || playerAHoles[search+3]==10 || playerAHoles[search+4]==9||playerAHoles[search+5]==8)
+                    {
+                        score+=GrabFromEmpty;
+                    }
+                    value = score;
+                    return;
+                }
+                else if(search ==1)
+                {
+                    if(playerAHoles[search+1]==12 || playerAHoles[search+2]==11 || playerAHoles[search+3]==10 || playerAHoles[search+4]==9 || playerAHoles[search-1]==1)
+                    {
+                        score+=GrabFromEmpty;
+                    }
+                    value = score;
+                    return;
+                }
+                else if(search ==2)
+                {
+                    if(playerAHoles[search+1]==12 || playerAHoles[search+2]==11 || playerAHoles[search+3]==10||playerAHoles[search-1]==1||playerAHoles[search-2]==2)
+                    {
+                        score+=GrabFromEmpty;
+                    }
+                    value = score;
+                    return;
+                }
+                else if(search ==3)
+                {
+                    if(playerAHoles[search+1]==12 || playerAHoles[search+2]==11||playerAHoles[search-1]==1||playerAHoles[search-2]==2||playerAHoles[search-3]==3)
+                    {
+                        score+=GrabFromEmpty;
+                    }
+                    value = score;
+                    return;
+                }
+                else if(search ==4)
+                {
+                    if(playerAHoles[search+1]==12 || playerAHoles[search-1]==1|| playerAHoles[search-2]==2|| playerAHoles[search-3]==3|| playerAHoles[search-4]==4)
+                    {
+                        score+=GrabFromEmpty;
+                    }
+                    value = score;
+                    return;
+                }
+                else if(search ==5)
+                {
+                    if(playerAHoles[search-1]==1|| playerAHoles[search-2]==2|| playerAHoles[search-3]==3|| playerAHoles[search-4]==4 || playerAHoles[search-5]==5)
+                    {
+                        score+=GrabFromEmpty;
+                    }
+                    value = score;
+                    return;
+                }
+                //Will have to cover the other player's holes as well!
+
+            }
+            break;
+
+        default:
+            break;
+    }
 //
 //
 //    //check for the opp end ascending order and try to attack!

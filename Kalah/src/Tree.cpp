@@ -207,7 +207,7 @@ int Tree::alphabeta(int currentNode, int depth, char player, int alpha, int beta
 int Tree::chooseBestMove(){
     int bestMove;
     int bestVal = -999999;
-    for (int i = 1; i <= NUM_HOLES; i++){
+    for (int i = NUM_HOLES; i > 0; i--){
         if (!boards[0].isLegal(player, i-1))
             continue;
         if (boards[i].getValue() > bestVal){

@@ -132,7 +132,7 @@ void Board::vishalValue(char player){
     }
     //cout<<endl<<"---------"<<endl;
 
-    // int oppvalue=0;
+    int oppvalue=0;
     int high = 0;
     for(int i=NUM_HOLES-1; i>0 ; i--)
     {
@@ -300,7 +300,7 @@ bool Board::isLegal(char player, int hole){
         return false;
     }
 
-    //hole must be in range
+    //hole must be in range 0-5
     if (hole < 0 || hole >= NUM_HOLES){
         //cerr << hole << " hole value outside of range in isLegal" << endl;
         return false;
@@ -321,7 +321,7 @@ bool Board::isLegal(char player, int hole){
 char Board::makeMove(char player, int hole){
     int numberStones;
     int sumA = 0, sumB = 0;
-    int winningScore = (NUM_HOLES * NUM_STONES);
+    int winningScore = (NUM_HOLES * NUM_STONES + 1);
     char oldPlayer = player;
 
     if (!isLegal(player, hole)){
@@ -411,10 +411,12 @@ char Board::makeMove(char player, int hole){
     //Case 1: Player A's kalah
     if (player == 'A' && hole == -1){
         playerAScore++;
+        //Do not switch player
     }
     //Case 2: Player B's kalah
     else if (player == 'B'  && hole == -1){
         playerBScore++;
+        //Do not switch player
     }
     //Case 3:Empty hole for A
     else if (player == 'A' && oldPlayer == 'A' && playerAHoles[hole] == 0){

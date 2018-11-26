@@ -245,7 +245,8 @@ void Tree::play(char& currentPlayer, char& lastPlayer, int& lastMove){
         lastMove = chooseBestMove();
         currentPlayer = boards[0].makeMove(player, lastMove);
     }
-    //Case 2: update board then choose move then update board
+    //Case 2: this player's move not after a repeat
+    //update board then choose move then update board
     else if (currentPlayer == player && lastPlayer != currentPlayer){
         //cout << player << "'s move and " << lastPlayer << " went last time." << endl;
         boards[0].makeMove(lastPlayer, lastMove);
@@ -255,7 +256,8 @@ void Tree::play(char& currentPlayer, char& lastPlayer, int& lastMove){
         currentPlayer = boards[0].makeMove(player, lastMove);
         buildTree();
     }
-    //Case 3: choose move then update board
+    //Case 3: this players move on repeat
+    //choose move then update board
     else if (currentPlayer == player && lastPlayer == currentPlayer){
         //cout << player << "'s move and I'm going again" << endl;
         lastPlayer = currentPlayer;
@@ -263,7 +265,8 @@ void Tree::play(char& currentPlayer, char& lastPlayer, int& lastMove){
         currentPlayer = boards[0].makeMove(player, lastMove);
         buildTree();
     }
-    //Case 4: update board without choosing move
+    //Case 4: not this player's move
+    //update board without choosing move
     else if (currentPlayer != player){
         //cout << "I just need to update" << endl;
         boards[0].makeMove(lastPlayer, lastMove);

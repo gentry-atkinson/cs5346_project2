@@ -345,6 +345,7 @@ int main()
     depth = 7;
     tree1 = new Tree(Tree::MINMAXAB, Tree::GENTRY, depth, 'A');
     tree2 = new Tree(Tree::MINMAXAB, Tree::VISHAL, depth, 'B');
+    //cout << "Total tree size is: " << tree1->getTotalBoards() << endl;
     currentPlayer = 'A';
     lastPlayer = Tree::FIRST_MOVE;
     lastMove = 0;
